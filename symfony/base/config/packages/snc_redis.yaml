@@ -1,0 +1,21 @@
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: "%env(REDIS_URL)%"
+            logging: "%kernel.debug%"
+        cache:
+            type: predis
+            alias: cache
+            dsn: "%env(REDIS_URL)%/1"
+            options:
+                profile: 2.2
+                connection_timeout: 10
+                read_write_timeout: 30
+        session:
+            type: predis
+            alias: session
+            dsn: "%env(REDIS_URL)%/2"
+    session:
+        client: default

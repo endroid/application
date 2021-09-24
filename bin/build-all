@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -ex
+
+bin/build-nodejs
+bin/build-symfony
+bin/build-vue

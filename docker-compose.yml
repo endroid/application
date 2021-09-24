@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+    nginx:
+        build: .docker/nginx
+        volumes:
+            - .:/app
+        depends_on:
+            - node
+            - php
+        ports:
+            - 80:80
+            - 443:443
+            - 3000:3000
+    node:
+        image: ghcr.io/endroid/docker-node:1.0.0
+        tty: true
+        volumes:
+            - .:/app
+        depends_on:
+            - postgres
+            - redis
+        expose:
+            - 3000
+    php:
+        image: ghcr.io/endroid/docker-php:1.0.4
+        environment:
+            - GITHUB_OAUTH_TOKEN=${GITHUB_OAUTH_TOKEN}
+        volumes:
+            - .:/var/www/html
+        depends_on:
+            - postgres
+            - redis
+        expose:
+            - 9000
+    postgres:
+        image: postgres:latest
+        environment:
+            POSTGRES_DB: application
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: root
+        ports:
+            - 5432:5432
+    redis:
+        image: redis:latest
+        volumes:
+            - .docker/redis/data/:/data
+        expose:
+            - 6379
+    blackfire:
+        image: blackfire/blackfire:2
+        environment:
+            # Do not change: instead set these envs on your host
+            BLACKFIRE_SERVER_ID: ~
+            BLACKFIRE_SERVER_TOKEN: ~
+            BLACKFIRE_CLIENT_ID: ~
+            BLACKFIRE_CLIENT_TOKEN: ~

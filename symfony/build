@@ -1,0 +1,69 @@
+#!/bin/bash
+
+set -ex
+
+cd "$(dirname "$0")"
+
+rm -rf application
+
+curl -sS https://getcomposer.org/installer | php -- --filename=composer
+
+./composer create-project symfony/website-skeleton application --no-install
+
+cp -r base/* application/
+
+(
+    cd application
+    curl -sS https://getcomposer.org/installer | php -- --filename=composer
+    ./composer config minimum-stability dev
+    ./composer config prefer-stable true
+    ./composer config extra.symfony.allow-contrib true
+    ./composer config platform.php 8.0
+
+    # Use source when installing personal libraries
+    sed -i -e s#\"[*]\":#\"endroid/*\":\"source\",\"*\":#g composer.json
+
+    ./composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
+    ./composer config repositories.adventure-bundle vcs git@github.com:endroid/adventure-bundle.git
+
+    ./composer require \
+        doctrine/doctrine-fixtures-bundle \
+        endroid/adventure-bundle:dev-master \
+        endroid/anonymizer:dev-master \
+        endroid/asset:dev-master \
+        endroid/calendar:dev-master \
+        endroid/composer-message:dev-master \
+        endroid/data-sanitize:dev-master \
+        endroid/data-sanitize-bundle:dev-master \
+        endroid/data-sanitize-demo-bundle:dev-master \
+        endroid/embed:dev-master \
+        endroid/flusher:dev-master \
+        endroid/image-placeholder:dev-master \
+        endroid/installer:dev-master \
+        endroid/pdf:dev-master \
+        endroid/play-bundle:dev-master \
+        endroid/property-access:dev-master \
+        endroid/qr-code:dev-master \
+        endroid/qr-code-bundle:dev-master \
+        endroid/quality:dev-master \
+        endroid/simple-spreadsheet:dev-master \
+        endroid/soccer-calendar:dev-master \
+        endroid/soccer-calendar-bundle:dev-master \
+        endroid/soccer-data:dev-master \
+        endroid/sudoku:dev-master \
+        endroid/teleporter:dev-master \
+        endroid/tile:dev-master \
+        knplabs/knp-snappy-bundle \
+        predis/predis \
+        snc/redis-bundle \
+        symfony/messenger \
+        --no-update
+
+    ./composer update --no-progress --no-interaction
+
+    bin/console doctrine:database:drop --if-exists --force
+    bin/console doctrine:database:create
+    bin/console doctrine:migrations:diff
+
+    bin/setup
+)

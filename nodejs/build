@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -ex
+
+cd "$(dirname "$0")"
+
+rm -rf application
+
+nest new application --package-manager npm
+
+(
+    cd application
+    npm install @nestjs/typeorm typeorm pg
+    npm install class-validator class-transformer
+    nest info
+    cp -r ../base/* ./
+    rm -rf **/*.spec.ts
+    rm -rf src/app.controller.ts src/app.service.ts
+    npm run build
+
+    npx typeorm schema:drop
+    npx typeorm migration:generate -n build
+    npm run build
+    npx typeorm migration:run
+)

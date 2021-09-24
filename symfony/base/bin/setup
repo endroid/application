@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+curl -sS https://getcomposer.org/installer | php -- --filename=composer
+./composer install --prefer-dist --no-progress -n
+
+bin/console doctrine:database:create --if-not-exists
+bin/console doctrine:migrations:migrate -n
+bin/console assets:install --symlink

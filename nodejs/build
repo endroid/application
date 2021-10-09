@@ -13,7 +13,7 @@ nest new application --package-manager npm
     npm install @nestjs/typeorm typeorm pg
     npm install class-validator class-transformer
     nest info
-    cp -r ../base/* ./
+    cp -a ../base/. ./
     rm -rf **/*.spec.ts
     rm -rf src/app.controller.ts src/app.service.ts
     npm run build
@@ -22,4 +22,7 @@ nest new application --package-manager npm
     npx typeorm migration:generate -n build
     npm run build
     npx typeorm migration:run
+
+    git init
+    git add -A && git commit -m "Initial commit"
 )

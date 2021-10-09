@@ -10,7 +10,7 @@ curl -sS https://getcomposer.org/installer | php -- --filename=composer
 
 ./composer create-project symfony/website-skeleton application --no-install
 
-cp -r base/* application/
+cp -a base/. application/
 
 (
     cd application
@@ -66,4 +66,7 @@ cp -r base/* application/
     bin/console doctrine:migrations:diff
 
     bin/setup
+
+    git init
+    git add -A && git commit -m "Initial commit"
 )

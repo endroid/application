@@ -16,17 +16,20 @@ services:
         tty: true
         volumes:
             - .:/app
+            - ~/.gitconfig:/home/node/.gitconfig
         depends_on:
             - postgres
             - redis
         expose:
             - 3000
     php:
-        image: ghcr.io/endroid/docker-php:1.0.4
+        image: ghcr.io/endroid/docker-php:1.0.6
         environment:
-            - GITHUB_OAUTH_TOKEN=${GITHUB_OAUTH_TOKEN}
+            COMPOSER_AUTH: ~
         volumes:
             - .:/var/www/html
+            - ~/.gitconfig:/var/www/.gitconfig
+            - ~/.composer:/var/www/.composer
         depends_on:
             - postgres
             - redis
@@ -38,12 +41,14 @@ services:
             POSTGRES_DB: application
             POSTGRES_USER: root
             POSTGRES_PASSWORD: root
+        volumes:
+            - .docker/postgres/data:/var/lib/postgresql/data
         ports:
             - 5432:5432
     redis:
         image: redis:latest
         volumes:
-            - .docker/redis/data/:/data
+            - .docker/redis/data:/data
         expose:
             - 6379
     blackfire:

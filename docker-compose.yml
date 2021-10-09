@@ -3,7 +3,7 @@ services:
     nginx:
         build: .docker/nginx
         volumes:
-            - .:/app
+            - .:/app:rw
         depends_on:
             - node
             - php
@@ -15,7 +15,7 @@ services:
         image: ghcr.io/endroid/docker-node:1.0.0
         tty: true
         volumes:
-            - .:/app
+            - .:/app:rw
             - ~/.gitconfig:/home/node/.gitconfig
         depends_on:
             - postgres

@@ -1,0 +1,17 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+    build-and-run:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v1
+            - name: Run docker stack
+              run: docker-compose up -d
+            - name: Check running containers
+              run: docker ps -a
+            - name: Build application
+              run: bin/build
+            - name: Run application
+              run: bin/run

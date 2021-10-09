@@ -1,9 +1,6 @@
 # Application
 
-## Build
+## Build and run
     
     bin/build
-
-## Run NodeJS Application
-
-    bin/run-nodejs
+    bin/run

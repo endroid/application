@@ -2,4 +2,4 @@
 
 set -ex
 
-docker-compose exec node sh -c 'cd nodejs/application && pm2 start pm2.yaml'
+docker-compose exec -T node sh -c 'cd nodejs/application && pm2 start pm2.yaml'

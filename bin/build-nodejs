@@ -2,4 +2,4 @@
 
 set -ex
 
-docker-compose exec --user 1000 node nodejs/build
+docker-compose exec -T --user 1000 node nodejs/build

@@ -2,4 +2,4 @@
 
 set -ex
 
-docker-compose exec vue vue/build
+docker-compose exec -T vue vue/build

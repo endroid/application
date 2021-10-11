@@ -1,11 +1,10 @@
 version: '3.8'
 services:
     nginx:
-        image: ghcr.io/endroid/docker-nginx:1.0.1
+        image: ghcr.io/endroid/docker-nginx:1.0.2
         volumes:
             - .:/var/www/html
             - ~/.letsencrypt:/etc/letsencrypt
-            - ~/.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
         depends_on:
             - node
             - php

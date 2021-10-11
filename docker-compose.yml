@@ -1,7 +1,7 @@
 version: '3.8'
 services:
     nginx:
-        image: ghcr.io/endroid/docker-nginx:1.0.2
+        image: ghcr.io/endroid/docker-nginx:1.0.3
         volumes:
             - .:/var/www/html
             - ~/.letsencrypt:/etc/letsencrypt

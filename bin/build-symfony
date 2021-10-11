@@ -2,4 +2,4 @@
 
 set -ex
 
-docker-compose exec -T --user 1000 php symfony/build
+docker-compose exec php symfony/build

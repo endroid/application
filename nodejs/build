@@ -6,6 +6,7 @@ cd "$(dirname "$0")"
 
 rm -rf application
 
+npm install --global @nestjs/cli @vue/cli pm2
 nest new application --package-manager npm
 
 (
@@ -13,7 +14,8 @@ nest new application --package-manager npm
     npm install @nestjs/typeorm typeorm pg
     npm install class-validator class-transformer
     nest info
-    cp -a ../base/. ./
+
+    cp -r ../base/. ./
     rm -rf **/*.spec.ts
     rm -rf src/app.controller.ts src/app.service.ts
     npm run build

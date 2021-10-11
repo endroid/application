@@ -3,7 +3,7 @@ services:
     nginx:
         build: .docker/nginx
         volumes:
-            - .:/app:rw
+            - .:/app
         depends_on:
             - node
             - php
@@ -12,24 +12,26 @@ services:
             - 443:443
             - 3000:3000
     node:
-        image: ghcr.io/endroid/docker-node:1.0.1
+        image: ghcr.io/endroid/docker-node:1.0.5
         tty: true
         volumes:
-            - .:/app:rw
+            - .:/app
             - ~/.gitconfig:/home/node/.gitconfig
+            - ~/.npm:/home/node/.npm
         depends_on:
             - postgres
             - redis
         expose:
             - 3000
     php:
-        image: ghcr.io/endroid/docker-php:1.0.6
+        image: ghcr.io/endroid/docker-php:1.0.9
         environment:
             COMPOSER_AUTH: ~
+            ENVIRONMENT: ~
         volumes:
             - .:/var/www/html
-            - ~/.gitconfig:/var/www/.gitconfig
-            - ~/.composer:/var/www/.composer
+            - ~/.gitconfig:/home/www-data/.gitconfig
+            - ~/.composer:/home/www-data/.composer
         depends_on:
             - postgres
             - redis

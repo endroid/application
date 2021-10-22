@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 
 rm -rf application
 
-npm install --global @nestjs/cli @vue/cli pm2
+npm update --global @nestjs/cli @vue/cli pm2
 nest new application --package-manager npm
 
 (

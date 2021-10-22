@@ -13,7 +13,7 @@ services:
             - 443:443
             - 3000:3000
     node:
-        image: ghcr.io/endroid/docker-node:1.0.5
+        image: ghcr.io/endroid/docker-node:1.0.6
         tty: true
         volumes:
             - .:/app
@@ -25,7 +25,7 @@ services:
         expose:
             - 3000
     php:
-        image: ghcr.io/endroid/docker-php:1.0.9
+        image: ghcr.io/endroid/docker-php:1.1.0
         environment:
             COMPOSER_AUTH: ~
             ENVIRONMENT: ~

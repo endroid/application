@@ -23,12 +23,9 @@ curl -sS https://getcomposer.org/installer | php -- --filename=composer
     sed -i -e s#\"[*]\":#\"endroid/*\":\"source\",\"*\":#g composer.json
 
     ./composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
-    ./composer config repositories.adventure-bundle vcs git@github.com:endroid/adventure-bundle.git
 
     ./composer require \
         doctrine/doctrine-fixtures-bundle \
-        endroid/adventure-bundle:dev-master \
-        endroid/anonymizer:dev-master \
         endroid/asset:dev-master \
         endroid/calendar:dev-master \
         endroid/composer-message:dev-master \

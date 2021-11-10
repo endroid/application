@@ -3,6 +3,7 @@
 set -e
 
 curl -sS https://getcomposer.org/installer | php -- --filename=composer
+./composer validate --no-check-all --strict
 ./composer install --prefer-dist --no-progress -n
 
 bin/console doctrine:database:create --if-not-exists

@@ -6,10 +6,11 @@ cd "$(dirname "$0")"
 
 rm -rf application
 
-composer create-project symfony/website-skeleton:^6.0 application --stability=dev --no-install --no-interaction
+composer create-project symfony/website-skeleton:^6.0 application --stability=dev --no-interaction
 
 (
     cd application
+
     composer config prefer-stable true
     composer config extra.symfony.allow-contrib true
     composer config platform.php 8.1
@@ -33,7 +34,6 @@ composer create-project symfony/website-skeleton:^6.0 application --stability=de
         endroid/flusher:dev-master \
         endroid/image-placeholder:dev-master \
         endroid/installer:dev-master \
-        endroid/pdf:dev-master \
         endroid/play-bundle:dev-master \
         endroid/property-access:dev-master \
         endroid/qr-code:dev-master \
@@ -46,13 +46,10 @@ composer create-project symfony/website-skeleton:^6.0 application --stability=de
         endroid/sudoku:dev-master \
         endroid/teleporter:dev-master \
         endroid/tile:dev-master \
-        knplabs/knp-snappy-bundle \
         predis/predis \
         snc/redis-bundle \
-        symfony/messenger \
-        --no-update
-
-    composer update --no-progress --no-interaction
+        symfony/messenger:* \
+        --update-with-all-dependencies --no-interaction
 
     bin/console doctrine:database:drop --if-exists --force
     bin/console doctrine:database:create

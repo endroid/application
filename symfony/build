@@ -23,6 +23,7 @@ composer create-project symfony/website-skeleton:^6.0 application --stability=de
     composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
 
     composer require \
+        php:^8.1 \
         doctrine/doctrine-fixtures-bundle \
         endroid/asset:dev-master \
         endroid/calendar:dev-master \

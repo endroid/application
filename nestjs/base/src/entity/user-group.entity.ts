@@ -4,7 +4,7 @@ import {User} from "./user.entity";
 @Entity()
 export class UserGroup {
   @PrimaryColumn()
-  uuid: string;
+  readonly uuid: string;
 
   @Column()
   name: string;

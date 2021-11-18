@@ -6,13 +6,13 @@ cd "$(dirname "$0")"
 
 rm -rf application
 
-npm update --global @nestjs/cli @vue/cli pm2
 nest new application --package-manager npm
 
 (
     cd application
     npm install @nestjs/typeorm typeorm pg
     npm install class-validator class-transformer
+    npm install @nestjs/graphql graphql apollo-server-express
     nest info
 
     cp -r ../base/. ./

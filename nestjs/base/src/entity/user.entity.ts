@@ -4,7 +4,7 @@ import {Column, Entity, JoinTable, ManyToMany, PrimaryColumn} from 'typeorm';
 @Entity()
 export class User {
   @PrimaryColumn()
-  uuid: string;
+  readonly uuid: string;
 
   @Column()
   email: string;

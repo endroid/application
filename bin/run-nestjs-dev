@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -ex
+
+docker-compose exec node sh -c 'cd nestjs/application && npm run start:dev'

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -ex
-
-docker-compose exec node sh -c 'cd nodejs/application && pm2 start pm2.yaml'

@@ -2,4 +2,4 @@
 
 set -ex
 
-bin/run-nodejs
+bin/run-nestjs

@@ -12,7 +12,7 @@ export class UserResolver {
   }
 
   @Query(returns => User)
-  async author(@Args('id', { type: () => Int }) id: number) {
+  async user(@Args('id', { type: () => Int }) id: number) {
     return this.userRepository.findOne(id);
   }
 }

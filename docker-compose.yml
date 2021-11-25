@@ -13,7 +13,7 @@ services:
             - 443:443
             - 3000:3000
     node:
-        image: ghcr.io/endroid/docker-node:1.1.1
+        image: ghcr.io/endroid/docker-node:1.1.2
         tty: true
         volumes:
             - .:/app
@@ -25,7 +25,7 @@ services:
         expose:
             - 3000
     php:
-        image: ghcr.io/endroid/docker-php:1.1.6
+        image: ghcr.io/endroid/docker-php:1.1.7
         environment:
             COMPOSER_AUTH: ~
             ENVIRONMENT: ~
@@ -43,7 +43,7 @@ services:
     postgres:
         image: postgres:latest
         environment:
-            POSTGRES_DB: application
+            POSTGRES_DB: nestjs
             POSTGRES_USER: root
             POSTGRES_PASSWORD: root
         volumes:

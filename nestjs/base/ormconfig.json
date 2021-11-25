@@ -4,9 +4,9 @@
 	"port": 5432,
 	"username": "root",
 	"password": "root",
-	"database": "application",
+	"database": "nestjs",
 	"synchronize": false,
-	"entities": ["dist/**/*.entity.js"],
+	"entities": ["dist/**/*.js"],
 	"migrations": ["dist/migration/*.js"],
 	"cli": {
 		"entitiesDir": "src/entity",

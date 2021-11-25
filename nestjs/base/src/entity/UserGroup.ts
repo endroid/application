@@ -1,5 +1,5 @@
 import {Column, Entity, ManyToMany, PrimaryColumn} from "typeorm";
-import {User} from "./user.entity";
+import {User} from "./User";
 
 @Entity()
 export class UserGroup {

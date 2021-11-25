@@ -8,10 +8,10 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
+import { CreateUser } from '../dto/CreateUser';
+import { UpdateUser } from '../dto/UpdateUser';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entity/user.entity';
+import { User } from '../entity/User';
 import { Repository } from 'typeorm';
 
 @Controller('user')
@@ -36,19 +36,19 @@ export class UserController {
   }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    const user = this.userRepository.create(createUserDto);
+  create(@Body() createUser: CreateUser) {
+    const user = this.userRepository.create(createUser);
     return this.userRepository.save(user);
   }
 
   @Patch(':uuid')
   async update(
     @Param('uuid') uuid: string,
-    @Body() updateUserDto: UpdateUserDto,
+    @Body() updateUser: UpdateUser,
   ) {
     const user = await this.userRepository.preload({
       uuid: uuid,
-      ...updateUserDto,
+      ...updateUser,
     });
     if (!user) {
       throw new NotFoundException(`User with UUID "${uuid}" not found`);

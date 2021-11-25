@@ -1,7 +1,7 @@
 import { IsEmail } from 'class-validator';
-import { UserGroup } from '../entity/user-group.entity';
+import { UserGroup } from '../entity/UserGroup';
 
-export class UpdateUserDto {
+export class UpdateUser {
   @IsEmail()
   readonly email: string;
 

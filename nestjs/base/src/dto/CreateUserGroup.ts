@@ -1,7 +1,7 @@
 import { IsString, IsUUID } from 'class-validator';
-import { UserGroup } from '../entity/user-group.entity';
+import { UserGroup } from '../entity/UserGroup';
 
-export class CreateUserDto {
+export class CreateUserGroup {
   @IsUUID()
   readonly uuid: string;
 

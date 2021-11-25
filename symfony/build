@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 
 rm -rf application
 
-composer create-project symfony/website-skeleton:^5.4 application --stability=dev --no-interaction
+composer create-project symfony/website-skeleton:^6.0 application --stability=dev --no-interaction
 
 (
     cd application

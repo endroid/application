@@ -12,6 +12,7 @@ services:
             - 80:80
             - 443:443
             - 3000:3000
+
     node:
         image: ghcr.io/endroid/docker-node:1.1.2
         tty: true
@@ -24,6 +25,7 @@ services:
             - redis
         expose:
             - 3000
+
     php:
         image: ghcr.io/endroid/docker-php:1.1.7
         environment:
@@ -40,6 +42,7 @@ services:
             - redis
         expose:
             - 9000
+
     postgres:
         image: postgres:latest
         environment:
@@ -50,12 +53,14 @@ services:
             - .docker/postgres/data:/var/lib/postgresql/data
         ports:
             - 5432:5432
+
     redis:
         image: redis:latest
         volumes:
             - .docker/redis/data:/data
         expose:
             - 6379
+
     blackfire:
         image: blackfire/blackfire:2
         environment:

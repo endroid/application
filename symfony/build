@@ -6,11 +6,12 @@ cd "$(dirname "$0")"
 
 rm -rf application
 
-composer create-project symfony/website-skeleton:^6.0 application --stability=dev --no-interaction
+composer create-project symfony/website-skeleton:^6.0 application --no-interaction
 
 (
     cd application
 
+    composer config minimum-stability dev
     composer config prefer-stable true
     composer config extra.symfony.allow-contrib true
     composer config platform.php 8.1

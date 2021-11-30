@@ -6,7 +6,7 @@
 	"password": "root",
 	"database": "nestjs",
 	"synchronize": false,
-	"entities": ["dist/**/*.js"],
+	"entities": ["dist/entity/*.js"],
 	"migrations": ["dist/migration/*.js"],
 	"cli": {
 		"entitiesDir": "src/entity",

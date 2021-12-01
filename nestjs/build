@@ -22,6 +22,8 @@ nest new application --package-manager npm
 
     npx typeorm schema:drop
     npx typeorm migration:generate -n build
+    npm run build
+
     npx typeorm migration:run
     npx fixtures ./fixtures --config ./ormconfig.json
 

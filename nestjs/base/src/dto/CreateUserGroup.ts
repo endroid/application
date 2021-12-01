@@ -3,7 +3,7 @@ import { UserGroup } from '../entity/UserGroup';
 
 export class CreateUserGroup {
   @IsUUID()
-  readonly uuid: string;
+  readonly id: string;
 
   @IsString()
   readonly name: string;

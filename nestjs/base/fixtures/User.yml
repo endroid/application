@@ -1,0 +1,6 @@
+entity: User
+items:
+    adminUser:
+        id: 'f7a0a72c-081e-49ac-8a98-afadc2c6d9ac'
+        email: 'info@endroid.nl'
+        groups: ['@adminGroup']

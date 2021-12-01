@@ -26,11 +26,11 @@ export class UserController {
     return this.userRepository.find();
   }
 
-  @Get(':uuid')
-  async findOne(@Param('uuid') uuid: string) {
-    const user = await this.userRepository.findOne(uuid);
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const user = await this.userRepository.findOne(id);
     if (!user) {
-      throw new NotFoundException(`User with UUID "${uuid}" not found`);
+      throw new NotFoundException(`User with UUID "${id}" not found`);
     }
     return user;
   }
@@ -41,24 +41,21 @@ export class UserController {
     return this.userRepository.save(user);
   }
 
-  @Patch(':uuid')
-  async update(
-    @Param('uuid') uuid: string,
-    @Body() updateUser: UpdateUser,
-  ) {
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updateUser: UpdateUser) {
     const user = await this.userRepository.preload({
-      uuid: uuid,
+      id: id,
       ...updateUser,
     });
     if (!user) {
-      throw new NotFoundException(`User with UUID "${uuid}" not found`);
+      throw new NotFoundException(`User with UUID "${id}" not found`);
     }
     return this.userRepository.save(user);
   }
 
-  @Delete(':uuid')
-  async delete(@Param('uuid') uuid: string) {
-    const user = await this.findOne(uuid);
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    const user = await this.findOne(id);
     return this.userRepository.remove(user);
   }
 }

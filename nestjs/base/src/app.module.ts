@@ -5,15 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entity/User';
 import { UserGroup } from './entity/UserGroup';
 import { getConnectionOptions } from 'typeorm';
-import {GraphQLModule} from "@nestjs/graphql";
-import {UserResolver} from "./graphql/resolver/UserResolver";
+import { GraphQLModule } from '@nestjs/graphql';
+import { UserResolver } from './graphql/resolver/UserResolver';
 
 @Module({
   imports: [
     AppModule,
     GraphQLModule.forRootAsync({
       useFactory: () => ({
-        autoSchemaFile: true
+        autoSchemaFile: true,
       }),
     }),
     TypeOrmModule.forRootAsync({
@@ -22,18 +22,9 @@ import {UserResolver} from "./graphql/resolver/UserResolver";
           autoLoadEntities: true,
         }),
     }),
-    TypeOrmModule.forFeature([
-      User,
-      UserGroup,
-    ]),
+    TypeOrmModule.forFeature([User, UserGroup]),
   ],
-  controllers: [
-    AppController,
-    UserController,
-  ],
-  providers: [
-    UserResolver,
-  ],
+  controllers: [AppController, UserController],
+  providers: [UserResolver],
 })
-
 export class AppModule {}

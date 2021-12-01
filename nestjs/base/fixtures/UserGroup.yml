@@ -1,0 +1,5 @@
+entity: UserGroup
+items:
+    adminGroup:
+        id: '9f7e978a-272f-4454-a395-fdd0657a8002'
+        name: 'Admin'

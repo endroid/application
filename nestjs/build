@@ -10,7 +10,7 @@ nest new application --package-manager npm
 
 (
     cd application
-    npm install @nestjs/typeorm typeorm pg
+    npm install @nestjs/typeorm typeorm pg typeorm-fixtures-cli
     npm install class-validator class-transformer
     npm install @nestjs/graphql graphql@^15.0 apollo-server-express
     nest info
@@ -22,8 +22,8 @@ nest new application --package-manager npm
 
     npx typeorm schema:drop
     npx typeorm migration:generate -n build
-    npm run build
     npx typeorm migration:run
+    npx fixtures ./fixtures --config ./ormconfig.json
 
     git init
     git add -A && git commit -m "Initial commit"

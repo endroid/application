@@ -1,4 +1,4 @@
-import { User } from '../../entity/User';
+import { User } from '../entities/user.entity';
 import {
   Args,
   ArgsType,
@@ -10,10 +10,10 @@ import {
 } from '@nestjs/graphql';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserGroup } from '../../entity/UserGroup';
+import { UserGroup } from '../entities/user-group.entity';
 
 @Resolver(() => User)
-export class UserResolver {
+export class UsersResolver {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,

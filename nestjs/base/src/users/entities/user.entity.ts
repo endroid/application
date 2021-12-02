@@ -1,4 +1,4 @@
-import { UserGroup } from './UserGroup';
+import { UserGroup } from './user-group.entity';
 import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
 

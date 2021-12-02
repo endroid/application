@@ -1,5 +1,5 @@
 import { IsString, IsUUID } from 'class-validator';
-import { UserGroup } from '../entity/UserGroup';
+import { UserGroup } from '../entities/user-group.entity';
 
 export class CreateUserGroup {
   @IsUUID()

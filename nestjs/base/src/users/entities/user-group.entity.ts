@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
-import { User } from './User';
+import { User } from './user.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
 
 @Entity()

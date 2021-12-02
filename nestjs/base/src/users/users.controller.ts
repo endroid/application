@@ -8,14 +8,14 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { CreateUser } from '../dto/CreateUser';
-import { UpdateUser } from '../dto/UpdateUser';
+import { CreateUser } from './dtos/create-user.dto';
+import { UpdateUser } from './dtos/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../entity/User';
+import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 
 @Controller('user')
-export class UserController {
+export class UsersController {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,

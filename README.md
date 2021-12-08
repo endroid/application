@@ -21,7 +21,6 @@ Run the following commands to have a running application.
 ## Guidelines
 
 * Use HTTPS for all served content
-* Quality: use CS, Static Analysis, Unit and E2E tests
 
 ### NestJS
 

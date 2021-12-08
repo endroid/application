@@ -13,7 +13,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class User {
   @Field(() => String)
-  @PrimaryColumn()
+  @PrimaryColumn({ type: 'uuid' })
   readonly id: string;
 
   @Field(() => String)

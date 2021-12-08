@@ -6,7 +6,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class UserGroup {
   @Field(() => String)
-  @PrimaryColumn()
+  @PrimaryColumn({ type: 'uuid' })
   readonly id: string;
 
   @Field()

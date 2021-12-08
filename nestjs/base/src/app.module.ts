@@ -5,10 +5,12 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { AppService } from './app.service';
+import { PuzzlesModule } from './puzzles/puzzles.module';
 
 @Module({
   imports: [
     AppModule,
+    PuzzlesModule,
     UsersModule,
     GraphQLModule.forRootAsync({
       useFactory: () => ({
@@ -20,6 +22,7 @@ import { AppService } from './app.service';
       useFactory: async () =>
         Object.assign(await getConnectionOptions(), {
           autoLoadEntities: true,
+          logging: true,
         }),
     }),
   ],

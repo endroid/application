@@ -3,3 +3,9 @@ items:
     adminGroup:
         id: '9f7e978a-272f-4454-a395-fdd0657a8002'
         name: 'Admin'
+    vendorGroup:
+        id: '4636977b-5436-47ca-8ecb-d65a4595e44e'
+        name: 'Vendor'
+    clientGroup:
+        id: '72c95242-d8f0-4dc8-8500-335a4339300b'
+        name: 'Client'

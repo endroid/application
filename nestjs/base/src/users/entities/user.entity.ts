@@ -1,11 +1,18 @@
 import { UserGroup } from './user-group.entity';
-import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
 
 @Entity()
 @ObjectType()
 export class User {
-  @Field((type) => String)
+  @Field(() => String)
   @PrimaryColumn()
   readonly id: string;
 
@@ -13,8 +20,15 @@ export class User {
   @Column()
   email: string;
 
-  @Field(() => [UserGroup])
-  @JoinTable()
-  @ManyToMany((type) => UserGroup, (group) => group.users)
-  groups: UserGroup[];
+  @Field(() => UserGroup)
+  @ManyToOne(() => UserGroup, (group) => group.users)
+  group: UserGroup;
+
+  @Field(() => Date)
+  @CreateDateColumn({ type: 'timestamptz' })
+  createdAt: Date;
+
+  @Field(() => Date)
+  @UpdateDateColumn({ type: 'timestamptz' })
+  updatedAt: Date;
 }

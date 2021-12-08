@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, OneToMany, PrimaryColumn } from 'typeorm';
 import { User } from './user.entity';
 import { Field, ObjectType } from '@nestjs/graphql';
 
@@ -13,6 +13,6 @@ export class UserGroup {
   @Column()
   name: string;
 
-  @ManyToMany(() => User, (user) => user.groups)
+  @OneToMany(() => User, (user) => user.group)
   users: User[];
 }

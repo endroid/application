@@ -1,8 +1,7 @@
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, Repository } from 'typeorm';
-import { UsersArgs } from './graphql/users.args';
-import { UsersFilters } from './users.filters';
+import { Repository } from 'typeorm';
+import { UsersFilter } from './users.filter';
 
 export class UsersService {
   constructor(
@@ -10,9 +9,9 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  async find(filters: UsersFilters): Promise<User[]> {
+  async find(filter: UsersFilter): Promise<User[]> {
     return await this.userRepository.find({
-      where: filters.toOrmFilters(),
+      where: filter.toOrmFilter(),
       relations: ['group'],
     });
   }

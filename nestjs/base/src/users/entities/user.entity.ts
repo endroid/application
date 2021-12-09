@@ -17,18 +17,24 @@ export class User {
   readonly id: string;
 
   @Field(() => String)
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Field(() => UserGroup)
-  @ManyToOne(() => UserGroup, (group) => group.users)
+  @ManyToOne(() => UserGroup)
   group: UserGroup;
 
   @Field(() => Date)
   @CreateDateColumn({ type: 'timestamptz' })
-  createdAt: Date;
+  readonly createdAt: Date;
 
   @Field(() => Date)
   @UpdateDateColumn({ type: 'timestamptz' })
-  updatedAt: Date;
+  readonly updatedAt: Date;
+
+  constructor(id: string, email: string, group: UserGroup) {
+    this.id = id;
+    this.email = email;
+    this.group = group;
+  }
 }

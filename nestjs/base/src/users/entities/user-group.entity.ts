@@ -13,6 +13,8 @@ export class UserGroup {
   @Column()
   name: string;
 
-  @OneToMany(() => User, (user) => user.group)
-  users: User[];
+  constructor(id: string, name: string) {
+    this.id = id;
+    this.name = name;
+  }
 }

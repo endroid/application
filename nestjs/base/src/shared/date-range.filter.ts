@@ -4,10 +4,10 @@ import { Between, LessThan, MoreThan } from 'typeorm';
 @InputType()
 export class DateRangeFilter {
   @Field(() => Date, { nullable: true })
-  public from?: Date;
+  from?: Date;
 
   @Field(() => Date, { nullable: true })
-  public to?: Date;
+  to?: Date;
 
   toOrmFilter(ormFilter: any = {}, name: string): any {
     if (this.from instanceof Date && this.to instanceof Date) {

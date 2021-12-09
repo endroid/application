@@ -1,18 +1,18 @@
 import { DateRangeFilter } from '../shared/date-range.filter';
-import { ArgsType, Field, ID } from '@nestjs/graphql';
+import { ArgsType, Field } from '@nestjs/graphql';
 import { Type } from 'class-transformer';
 
 @ArgsType()
 export class UsersFilter {
-  @Field(() => ID, { nullable: true })
-  public id?: string;
+  @Field(() => String, { nullable: true })
+  id?: string;
 
   @Field(() => String, { nullable: true })
-  public groupName?: string;
+  groupName?: string;
 
   @Type()
   @Field(() => DateRangeFilter, { nullable: true })
-  public createdAt?: DateRangeFilter;
+  createdAt?: DateRangeFilter;
 
   toOrmFilter(ormFilter: any = {}): any {
     if (this.id) {

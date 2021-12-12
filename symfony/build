@@ -49,7 +49,6 @@ composer create-project symfony/website-skeleton:^6.0 application --no-interacti
         endroid/teleporter:dev-master \
         endroid/tile:dev-master \
         predis/predis \
-        snc/redis-bundle \
         symfony/messenger:* \
         --update-with-all-dependencies --no-interaction
 

@@ -13,7 +13,7 @@ nest new application --package-manager npm
     npm install @nestjs/typeorm typeorm pg typeorm-fixtures-cli
     npm install @nestjs/graphql graphql@^15.0 apollo-server-express
     npm install class-validator class-transformer
-    npm install @nestjs/axios @nestjs/serve-static
+    npm install @nestjs/axios @nestjs/config @nestjs/serve-static
     nest info
 
     cp -r ../base/. ./

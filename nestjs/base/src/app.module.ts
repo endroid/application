@@ -6,9 +6,14 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { AppService } from './app.service';
 import { PuzzlesModule } from './puzzles/puzzles.module';
+import {ConfigModule} from "@nestjs/config";
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+    }),
     AppModule,
     PuzzlesModule,
     UsersModule,
@@ -22,7 +27,6 @@ import { PuzzlesModule } from './puzzles/puzzles.module';
       useFactory: async () =>
         Object.assign(await getConnectionOptions(), {
           autoLoadEntities: true,
-          logging: true,
         }),
     }),
   ],

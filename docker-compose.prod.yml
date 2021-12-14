@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+    node:
+        environment:
+            NODE_ENV: production
+
+    php:
+        environment:
+            APP_ENV: prod

@@ -25,10 +25,9 @@ nest new application --package-manager npm
 
     npx typeorm schema:drop
     bin/migration/generate
-    bin/migration/run
-    bin/fixtures/load
 
     bin/check
+    bin/test
 
     git init
     git add -A && git commit -m "Initial commit"

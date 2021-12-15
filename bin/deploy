@@ -8,7 +8,8 @@ git clone git@github.com:endroid/application.git
 (
     cd application
     docker-compose stop
-    docker-compose up -d -f docker-compose.prod.yml
+    docker system prune -a --volumes
+    docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
     bin/build-and-run
     docker-compose exec nginx /etc/nginx/ssl/certbot
 )

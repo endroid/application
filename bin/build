@@ -2,6 +2,5 @@
 
 set -ex
 
-bin/build-nestjs
-bin/build-symfony
-bin/build-vue
+bin/nestjs/build
+bin/symfony/build

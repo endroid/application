@@ -22,6 +22,7 @@ composer create-project symfony/website-skeleton:^6.0 application --no-interacti
     sed -i -e s#\"[*]\":#\"endroid/*\":\"source\",\"*\":#g composer.json
 
     composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
+    composer config repositories.snappy-bundle vcs git@github.com:endroid/KnpSnappyBundle.git
 
     composer require \
         php:^8.1 \

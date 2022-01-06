@@ -26,6 +26,7 @@ composer create-project symfony/website-skeleton:^6.0 application --no-interacti
 
     composer require \
         php:^8.1 \
+        api-platform/api-pack \
         doctrine/doctrine-fixtures-bundle \
         endroid/asset:dev-master \
         endroid/calendar:dev-master \
@@ -51,7 +52,10 @@ composer create-project symfony/website-skeleton:^6.0 application --no-interacti
         endroid/tile:dev-master \
         predis/predis \
         symfony/messenger:* \
+        webonyx/graphql-php \
         --update-with-all-dependencies --no-interaction
+
+    bin/console make:user User --is-entity --identity-property-name email --with-password --no-interaction
 
     bin/console doctrine:database:drop --if-exists --force
     bin/console doctrine:database:create

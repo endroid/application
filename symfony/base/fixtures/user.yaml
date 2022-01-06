@@ -1,0 +1,4 @@
+App\Entity\User:
+    user_admin:
+        email: 'admin@endroid.nl'
+        plainPassword: 'admin'

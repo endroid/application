@@ -1,37 +1,34 @@
 # Application
 
-## Build and run
+## Stack
 
-* NestJS Application
-  * TypeORM (incl. fixtures + migrations)
-  * GraphQL
-* Symfony Application
+* Nginx
+  * Serves all below services
+  * Use HTTPS for each service
+* Symfony (PHP) - https://localhost
+  * Bootstrap
   * API Platform (incl. GraphQL)
   * Blackfire integration
-* Vue Application
-* Docker Stack
+* NestJS (NodeJS / Typescript) - https://localhost:3000
+  * Bootstrap
+  * TypeORM (incl. fixtures + migrations)
+  * GraphQL (Apollo)
+* Flask (Python) - https://localhost:5000
+  * Bootstrap
+* Rocket (Rust) - https://localhost:8000
+  * Bootstrap
+* PostgreSQL
+  * Single database server
+  * Separate database per service
+* Redis
+  * Single server
+  * Separate namespace per service
+
+## Docker
+    
+    docker-compose up -d
 
 ## Build and run
 
-Run the following commands to have a running application.
-    
-    docker-compose up -d
-    bin/build-and-run
-
-## Guidelines
-
-* Use HTTPS for all served content
-
-### NestJS
-
-* Place everything in modules (i.e. users)
-* Folder names: controllers, entities etc.
-* File names: user-group.entity.ts
-
-## Testing and code quality
-
-* Pragmatic: do not test just to test
-* Unit tests: for critical and complex components
-* E2E tests using Cypress: also applicable for API tests
-* PHP: static analysis using PHPStan and Psalm
-* Prettier format for TS and PHP CS Fixer for PHP
+    bin/<service>/build
+    bin/<service>/run

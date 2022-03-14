@@ -4,4 +4,4 @@ set -ex
 
 cd "$(dirname "$0")"/..
 
-pm2 start
+cd application && npm run start:dev

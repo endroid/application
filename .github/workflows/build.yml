@@ -13,5 +13,3 @@ jobs:
               run: docker ps -a
             - name: Build application
               run: bin/build
-            - name: Run application
-              run: bin/run

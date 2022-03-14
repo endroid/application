@@ -3,5 +3,5 @@
 set -ex
 
 npx typeorm schema:drop
-bin/migration/run
+bin/migrations/run
 bin/fixtures/load

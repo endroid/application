@@ -1,4 +1,4 @@
-import { IsEmail, IsString, IsUUID } from 'class-validator';
+import { IsEmail, IsUUID } from 'class-validator';
 import { UserGroup } from '../entities/user-group.entity';
 
 export class CreateUser {

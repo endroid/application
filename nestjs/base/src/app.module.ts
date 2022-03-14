@@ -6,7 +6,8 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { AppService } from './app.service';
 import { PuzzlesModule } from './puzzles/puzzles.module';
-import {ConfigModule} from "@nestjs/config";
+import { ConfigModule } from '@nestjs/config';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -17,11 +18,10 @@ import {ConfigModule} from "@nestjs/config";
     AppModule,
     PuzzlesModule,
     UsersModule,
-    GraphQLModule.forRootAsync({
-      useFactory: () => ({
-        include: [UsersModule],
-        autoSchemaFile: true,
-      }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      include: [UsersModule],
+      driver: ApolloDriver,
+      autoSchemaFile: true,
     }),
     TypeOrmModule.forRootAsync({
       useFactory: async () =>

@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -ex
-
-docker-compose exec node sh -c 'cd nestjs && pm2 start'

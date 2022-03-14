@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -ex
-
-docker-compose exec php symfony/build

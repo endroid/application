@@ -2,7 +2,7 @@
 
 set -ex
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")"/..
 
 rm -rf application
 
@@ -54,8 +54,6 @@ composer create-project symfony/website-skeleton:^6.0 application --no-interacti
         symfony/messenger:* \
         webonyx/graphql-php \
         --update-with-all-dependencies --no-interaction
-
-    bin/console make:user User --is-entity --identity-property-name email --with-password --no-interaction
 
     bin/console doctrine:database:drop --if-exists --force
     bin/console doctrine:database:create

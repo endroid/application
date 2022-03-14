@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -ex
+
+docker-compose exec php symfony/bin/$1

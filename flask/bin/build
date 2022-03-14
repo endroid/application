@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -ex
+
+cd "$(dirname "$0")"/..
+
+rm -rf application
+
+mkdir application
+
+(
+    cd application
+
+    cp -r ../base/. ./
+
+    git init
+    git add -A && git commit -m "Initial commit"
+)

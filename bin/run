@@ -2,5 +2,7 @@
 
 set -ex
 
-bin/nestjs/run
-bin/symfony/run
+bin/flask run
+bin/nestjs run
+bin/rocket run
+bin/symfony run

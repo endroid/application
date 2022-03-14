@@ -2,5 +2,7 @@
 
 set -ex
 
-bin/nestjs/build
-bin/symfony/build
+bin/flask build
+bin/nestjs build
+bin/rocket build
+bin/symfony build

@@ -31,7 +31,7 @@ services:
             - 3000
 
     php:
-        image: ghcr.io/endroid/docker-php:1.2.1
+        image: ghcr.io/endroid/docker-php:1.2.2
         volumes:
             - .:/var/www/html
             - ~/.composer:/home/www-data/.composer

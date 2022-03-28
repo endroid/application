@@ -6,7 +6,7 @@ cd "$(dirname "$0")"/..
 
 rm -rf application
 
-composer create-project symfony/website-skeleton:^6.0 application --no-interaction
+composer create-project symfony/skeleton:^6.0 application --no-interaction
 
 (
     cd application
@@ -22,7 +22,6 @@ composer create-project symfony/website-skeleton:^6.0 application --no-interacti
     sed -i -e s#\"[*]\":#\"endroid/*\":\"source\",\"*\":#g composer.json
 
     composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
-    composer config repositories.snappy-bundle vcs git@github.com:endroid/KnpSnappyBundle.git
 
     composer require \
         php:^8.1 \
@@ -38,6 +37,7 @@ composer create-project symfony/website-skeleton:^6.0 application --no-interacti
         endroid/flusher:dev-master \
         endroid/image-placeholder:dev-master \
         endroid/installer:dev-master \
+        endroid/pdf:dev-master \
         endroid/play-bundle:dev-master \
         endroid/property-access:dev-master \
         endroid/qr-code:dev-master \
@@ -50,10 +50,19 @@ composer create-project symfony/website-skeleton:^6.0 application --no-interacti
         endroid/sudoku:dev-master \
         endroid/teleporter:dev-master \
         endroid/tile:dev-master \
+        knplabs/knp-snappy-bundle \
         predis/predis \
         symfony/messenger:* \
+        symfony/phpunit-bridge:* \
+        webapp \
         webonyx/graphql-php \
-        --update-with-all-dependencies --no-interaction
+        --no-update --with-all-dependencies --no-interaction
+
+    composer require \
+        roave/security-advisories:dev-latest \
+        --dev --no-update --no-interaction
+
+    composer update --no-interaction
 
     bin/console doctrine:database:drop --if-exists --force
     bin/console doctrine:database:create

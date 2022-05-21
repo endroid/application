@@ -50,6 +50,7 @@ composer create-project symfony/skeleton:^6.0 application --no-interaction
         endroid/sudoku:dev-master \
         endroid/teleporter:dev-master \
         endroid/tile:dev-master \
+        endroid/world:dev-master \
         knplabs/knp-snappy-bundle \
         predis/predis \
         symfony/messenger:* \

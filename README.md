@@ -2,20 +2,23 @@
 
 ## Stack
 
-* Nginx
-  * Serves all below services
-  * Use HTTPS for each service
-* Symfony (PHP) - https://localhost
+* Symfony (PHP)
+  * RoadRunner - https://localhost
+  * Nginx - https://localhost:9000
   * Bootstrap
+  * Roadrunner Application Server
   * API Platform (incl. GraphQL)
   * Blackfire integration
-* NestJS (NodeJS / Typescript) - https://localhost:3000
+* NestJS (NodeJS / Typescript)
+  * Nginx - https://localhost:3000
   * Bootstrap
   * TypeORM (incl. fixtures + migrations)
   * GraphQL (Apollo)
-* Flask (Python) - https://localhost:5000
+* Flask (Python)
+  * Nginx - https://localhost:5000
   * Bootstrap
-* Rocket (Rust) - https://localhost:8000
+* Rocket (Rust)
+  * Nginx - https://localhost:8000
   * Bootstrap
 * PostgreSQL
   * Single database server

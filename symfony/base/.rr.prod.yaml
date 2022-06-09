@@ -1,0 +1,20 @@
+version: '2.7'
+server:
+  command: "php public/index.php"
+  env:
+    - APP_RUNTIME: Runtime\RoadRunnerSymfonyNyholm\Runtime
+http:
+  address: 0.0.0.0:8080
+  ssl:
+    address: :8080
+    acme:
+      certs_dir: rr_le_certs
+      email: info@endroid.nl
+      challenge_type: http-01
+      domains:
+        - endroid.nl
+  middleware: ['static']
+  pool:
+    num_workers: 2
+  static:
+    dir: './public'

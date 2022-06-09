@@ -1,0 +1,17 @@
+version: '2.7'
+server:
+  command: "php public/index.php"
+  env:
+    - APP_RUNTIME: Runtime\RoadRunnerSymfonyNyholm\Runtime
+http:
+  address: 0.0.0.0:80
+  ssl:
+    address: :443
+    redirect: true
+    cert: /etc/ssl/server.crt
+    key: /etc/ssl/server.key
+  middleware: ['static']
+  pool:
+    num_workers: 2
+  static:
+    dir: './public'

@@ -6,5 +6,5 @@ cd "$(dirname "$0")"/..
 
 (
     cd application
-    rr serve -c .rr.dev.yaml
+    rr serve
 )

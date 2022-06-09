@@ -4,10 +4,10 @@ server:
   env:
     - APP_RUNTIME: Runtime\RoadRunnerSymfonyNyholm\Runtime
 http:
-  address: 0.0.0.0:80
+  address: 0.0.0.0:8080
   ssl:
-    address: :443
-    redirect: true
+    address: :8080
+    redirect: false
     cert: /etc/ssl/server.crt
     key: /etc/ssl/server.key
   middleware: ['static']

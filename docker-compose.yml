@@ -1,7 +1,7 @@
 version: '3.8'
 services:
     nginx:
-        image: ghcr.io/endroid/docker-nginx:1.0.7
+        image: ghcr.io/endroid/docker-nginx:1.0.8
         volumes:
             - .:/var/www/html
             - ~/.letsencrypt:/etc/letsencrypt
@@ -9,13 +9,15 @@ services:
             - node
             - php
         ports:
+            - '80:80'
+            - '443:443'
             - '3000:3000'
             - '5000:5000'
             - '8000:8000'
             - '9000:9000'
 
     php:
-        image: ghcr.io/endroid/docker-php:1.2.4
+        image: ghcr.io/endroid/docker-php:1.2.6
         volumes:
             - .:/var/www/html
             - ~/.composer:/home/www-data/.composer
@@ -28,8 +30,7 @@ services:
         expose:
             - 9000
         ports:
-            - '80:80'
-            - '443:443'
+            - '8080:8080'
 
     node:
         image: ghcr.io/endroid/docker-node:1.1.4

@@ -15,3 +15,13 @@ http:
     num_workers: 2
   static:
     dir: './public'
+
+reload:
+  interval: 1s
+  patterns: ['.php']
+  services:
+    http:
+      recursive: true
+      ignore: ['vendor']
+      patterns: ['.php']
+      dirs: ['.']

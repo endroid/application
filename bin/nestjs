@@ -2,4 +2,4 @@
 
 set -ex
 
-docker-compose exec node nestjs/bin/$1
+docker compose exec node nestjs/bin/$1

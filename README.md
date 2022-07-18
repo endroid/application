@@ -29,7 +29,7 @@
 
 ## Docker
     
-    docker-compose up -d
+    docker compose up -d
 
 ## Build and run
 

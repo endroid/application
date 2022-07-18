@@ -2,4 +2,4 @@
 
 set -ex
 
-docker-compose exec rust rocket/bin/$1
+docker compose exec rust rocket/bin/$1

@@ -6,6 +6,8 @@ cd "$(dirname "$0")"/..
 
 rm -rf application
 
+composer config --global --no-plugins allow-plugins.endroid/composer-message true
+composer config --global --no-plugins allow-plugins.endroid/installer true
 composer create-project symfony/skeleton:^6.0 application --no-interaction
 
 (

@@ -2,26 +2,12 @@ version: '2.7'
 server:
   command: "php public/index.php"
   env:
+    - APP_ENV: prod
     - APP_RUNTIME: Runtime\RoadRunnerSymfonyNyholm\Runtime
 http:
-  address: 0.0.0.0:8080
-  ssl:
-    address: :8080
-    redirect: false
-    cert: /etc/ssl/server.crt
-    key: /etc/ssl/server.key
+  address: 0.0.0.0:6000
   middleware: ['static']
   pool:
     num_workers: 2
   static:
     dir: './public'
-
-reload:
-  interval: 1s
-  patterns: ['.php']
-  services:
-    http:
-      recursive: true
-      ignore: ['vendor']
-      patterns: ['.php']
-      dirs: ['.']

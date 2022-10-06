@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -ex
-
-bin/flask run
-bin/nestjs run
-bin/rocket run
-bin/symfony run

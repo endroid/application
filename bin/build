@@ -1,8 +1,0 @@
-#!/bin/bash
-
-set -ex
-
-bin/flask build
-bin/nestjs build
-bin/rocket build
-bin/symfony build

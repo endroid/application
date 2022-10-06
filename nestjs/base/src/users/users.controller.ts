@@ -28,7 +28,7 @@ export class UsersController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const user = await this.userRepository.findOne(id);
+    const user = await this.userRepository.findOneBy({id});
     if (!user) {
       throw new NotFoundException(`User with UUID "${id}" not found`);
     }

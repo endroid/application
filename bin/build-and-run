@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -ex
-
-bin/build
-bin/run

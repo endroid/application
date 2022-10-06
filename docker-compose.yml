@@ -1,7 +1,7 @@
 version: '3.8'
 services:
     nginx:
-        image: ghcr.io/endroid/docker-nginx:1.0.8
+        image: ghcr.io/endroid/docker-nginx:1.0.9
         volumes:
             - .:/var/www/html
             - ~/.letsencrypt:/etc/letsencrypt
@@ -11,10 +11,10 @@ services:
         ports:
             - '80:80'
             - '443:443'
+            - '9000:9000'
             - '3000:3000'
             - '5000:5000'
             - '8000:8000'
-            - '9000:9000'
 
     php:
         image: ghcr.io/endroid/docker-php:1.2.6
@@ -29,11 +29,10 @@ services:
             - redis
         expose:
             - 9000
-        ports:
-            - '8080:8080'
+            - 6000
 
     node:
-        image: ghcr.io/endroid/docker-node:1.1.4
+        image: ghcr.io/endroid/docker-node:1.1.7
         tty: true
         environment:
             NODE_ENV: development

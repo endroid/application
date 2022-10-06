@@ -10,7 +10,7 @@ git clone git@github.com:endroid/application.git
     docker compose stop
     docker system prune -a --volumes
     docker compose up -d
-    bin/build-and-run
-    cp ../.env.local symfony/application/
+    make symfony build
+    make symfony run
     docker compose exec nginx /etc/nginx/ssl/certbot
 )

@@ -3,23 +3,20 @@
 ## Stack
 
 * Symfony (PHP)
-  * RoadRunner - https://localhost
-  * Nginx - https://localhost:9000
-  * Bootstrap
+  * RoadRunner (prod) - http://localhost:6001
+  * Nginx + RoadRunner (prod) - https://localhost
+  * Nginx (dev) - https://localhost:9000
   * Roadrunner Application Server
   * API Platform (incl. GraphQL)
-  * Blackfire integration
 * NestJS (NodeJS / Typescript)
+  * Node - http://localhost:3001
   * Nginx - https://localhost:3000
-  * Bootstrap
   * TypeORM (incl. fixtures + migrations)
   * GraphQL (Apollo)
 * Flask (Python)
   * Nginx - https://localhost:5000
-  * Bootstrap
 * Rocket (Rust)
   * Nginx - https://localhost:8000
-  * Bootstrap
 * PostgreSQL
   * Single database server
   * Separate database per service

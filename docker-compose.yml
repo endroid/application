@@ -1,7 +1,7 @@
 version: '3.8'
 services:
     nginx:
-        image: ghcr.io/endroid/docker-nginx:1.1.0
+        image: ghcr.io/endroid/docker-nginx:1.1.2
         volumes:
             - .:/var/www/html
             - ~/.letsencrypt:/etc/letsencrypt
@@ -17,7 +17,7 @@ services:
             - '8000:8000'
 
     php:
-        image: ghcr.io/endroid/docker-php:1.2.7
+        image: ghcr.io/endroid/docker-php:1.2.9
         volumes:
             - .:/var/www/html
             - ~/.composer:/home/www-data/.composer
@@ -29,10 +29,11 @@ services:
             - redis
         expose:
             - 9000
-            - 6000
+        ports:
+            - '6001:6000'
 
     node:
-        image: ghcr.io/endroid/docker-node:1.1.7
+        image: ghcr.io/endroid/docker-node:1.1.9
         tty: true
         environment:
             NODE_ENV: development
@@ -43,26 +44,26 @@ services:
         depends_on:
             - postgres
             - redis
-        expose:
-            - 3000
+        ports:
+            - '3001:3000'
 
     python:
-        image: ghcr.io/endroid/docker-python:1.0.1
+        image: ghcr.io/endroid/docker-python:1.0.3
         tty: true
         volumes:
             - .:/app
             - ~/.gitconfig:/home/python/.gitconfig
-        expose:
-            - 5000
+        ports:
+            - '5001:5000'
 
     rust:
-        image: ghcr.io/endroid/docker-rust:1.0.1
+        image: ghcr.io/endroid/docker-rust:1.0.3
         tty: true
         volumes:
             - .:/app
             - ~/.gitconfig:/home/rust/.gitconfig
         expose:
-            - 8000
+            - '8001:8000'
 
     redis:
         image: redis:latest
@@ -81,12 +82,3 @@ services:
             - .docker/postgres/data:/var/lib/postgresql/data
         ports:
             - '5432:5432'
-
-    blackfire:
-        image: blackfire/blackfire:2
-        environment:
-            # Do not change: instead set these envs on your host
-            BLACKFIRE_SERVER_ID: ~
-            BLACKFIRE_SERVER_TOKEN: ~
-            BLACKFIRE_CLIENT_ID: ~
-            BLACKFIRE_CLIENT_TOKEN: ~

@@ -4,7 +4,10 @@ set -ex
 
 cd "$(dirname "$0")"/..
 
+bin/build
+
 (
     cd application
-	pm2 start
+
+    cp -r ../base-benchmark/. ./
 )

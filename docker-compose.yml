@@ -17,7 +17,7 @@ services:
             - '8000:8000'
 
     php:
-        image: ghcr.io/endroid/docker-php:1.2.6
+        image: ghcr.io/endroid/docker-php:1.2.7
         volumes:
             - .:/var/www/html
             - ~/.composer:/home/www-data/.composer

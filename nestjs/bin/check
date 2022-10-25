@@ -2,4 +2,4 @@
 
 set -ex
 
-cd nestjs/application && bin/check
+cd nestjs/application && npm run check

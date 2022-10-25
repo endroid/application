@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
-    name: "min",
-    script: "./application/dist/min.js",
+    name: "application-min",
+    script: "./dist/src/min.js",
     instances: 4,
     exec_mode: "cluster"
   }]

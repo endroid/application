@@ -21,14 +21,21 @@ nest new application --package-manager npm
     rm -rf **/*.spec.ts
     npm run build
 
+    jq '.scripts.typeorm = "typeorm-ts-node-commonjs -d ormconfig.ts"' package.json | sponge package.json
+    jq '.scripts."migration:generate" = "npm run typeorm migration:generate src/migrations/delta"' package.json | sponge package.json
+    jq '.scripts."migration:run" = "npm run typeorm migration:run"' package.json | sponge package.json
+    jq '.scripts.fixtures = "fixtures-ts-node-commonjs -d ormconfig.ts"' package.json | sponge package.json
+    jq '.scripts."fixtures:load" = "npm run fixtures load ./fixtures"' package.json | sponge package.json
+    jq '.scripts.check = "npm run format && npm run lint"' package.json | sponge package.json
+    jq '.scripts.test = "npm run typeorm schema:drop && npm run migration:run && npm run fixtures:load && jest --passWithNoTests"' package.json | sponge package.json
     jq '.compilerOptions.noImplicitAny = true' tsconfig.json | sponge tsconfig.json
     jq '.compilerOptions.strictNullChecks = true' tsconfig.json | sponge tsconfig.json
 
-    npx typeorm schema:drop
-    bin/migrations/generate
+    npm run typeorm schema:drop
+    npm run migration:generate
 
-    bin/check
-    bin/test
+    npm run check
+    npm run test
 
     git init
     git add -A && git commit -m "Initial commit"

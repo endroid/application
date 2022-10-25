@@ -1,7 +1,0 @@
-#!/bin/bash
-
-set -ex
-
-npx typeorm schema:drop
-bin/migrations/run
-bin/fixtures/load

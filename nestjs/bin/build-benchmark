@@ -10,4 +10,6 @@ bin/build
     cd application
 
     cp -r ../base-benchmark/. ./
+
+    npm run build
 )

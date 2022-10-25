@@ -1,6 +1,0 @@
-#!/bin/bash
-
-set -ex
-
-npm run build
-npx typeorm migration:generate -n delta

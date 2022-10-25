@@ -5,9 +5,9 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use phpseclib3\Crypt\Random;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation as Serializer;
 use Symfony\Component\Uid\Uuid;
 
 #[ApiResource]
@@ -26,9 +26,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct(
         #[ORM\Id]
         #[ORM\Column(type: 'uuid')]
+        #[Serializer\Groups(['list'])]
         private readonly Uuid $id,
 
         #[ORM\Column(type: 'string', unique: true)]
+        #[Serializer\Groups(['list'])]
         private string $email,
 
         #[ORM\Column(type: 'json')]

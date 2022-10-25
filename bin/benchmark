@@ -2,20 +2,53 @@
 
 set -ex
 
-# Make sure nothing is running
-make nestjs stop || true
-make symfony stop || true
+# Restart all to make sure nothing is running
+make up
+sleep 10
 
-# Symfony: minimum example: no framework
+# SYMFONY
+
 make symfony run-min &>/dev/null &
 sleep 3
+
+# Minimal example (no framework or queries)
 for i in `seq 1 20`; do curl http://localhost:6001/; done
-ab -c 30 -t 30 http://localhost:6001/ > php-min.ab
+ab -c 30 -t 30 http://localhost:6001/ > php-minimal.ab
+
+make symfony stop
+make symfony run &>/dev/null &
+sleep 3
+
+# Controller output (no queries)
+for i in `seq 1 20`; do curl http://localhost:6001/hello-world; done
+ab -c 30 -t 30 http://localhost:6001/hello-world > php-symfony-controller.ab
+
+# Controller output (plain query)
+
+
+# Controller output (repository find all)
+for i in `seq 1 20`; do curl http://localhost:6001/repository; done
+ab -c 30 -t 30 http://localhost:6001/repository > php-symfony-repository.ab
+
 make symfony stop
 
-# NestJS: minimum example: no framework
+# NESTJS
+
 make nestjs run-min
 sleep 3
+
+# Minimal example (no framework or queries)
 for i in `seq 1 20`; do curl http://localhost:3001/; done
-ab -c 30 -t 30 http://localhost:3001/ > node-min.ab
+ab -c 30 -t 30 http://localhost:3001/ > node-minimal.ab
+
+make nestjs stop
+make nestjs run
+sleep 3
+
+# Controller output (no queries)
+
+# Controller output (plain query)
+
+# Controller output (repository find all)
+
 make nestjs stop

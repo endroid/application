@@ -25,7 +25,7 @@ while (true) {
 
     try {
         // Application code logic
-        $psr7->respond(new Psr7\Response(200, [], 'Hello World!'));
+        $psr7->respond(new Psr7\Response(200, [], 'Hello World'));
     } catch (\Throwable) {
         $psr7->respond(new Psr7\Response(500, [], 'Something Went Wrong!'));
     }

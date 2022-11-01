@@ -3,20 +3,23 @@
 ## Stack
 
 * Symfony (PHP)
-  * RoadRunner (prod) - http://localhost:6001
-  * Nginx + RoadRunner (prod) - https://localhost
-  * Nginx (dev) - https://localhost:9000
+  * Nginx + RoadRunner PROD - https://localhost
+  * Nginx DEV - https://localhost:9000
+  * RoadRunner PROD - http://localhost:6001
+  * RoadRunner PROD - https://localhost:6001
   * Roadrunner Application Server
   * API Platform (incl. GraphQL)
 * NestJS (NodeJS / Typescript)
-  * Node - http://localhost:3001
   * Nginx - https://localhost:3000
+  * Node - http://localhost:3001
   * TypeORM (incl. fixtures + migrations)
   * GraphQL (Apollo)
 * Flask (Python)
   * Nginx - https://localhost:5000
+  * Flask - http://localhost:5001
 * Rocket (Rust)
   * Nginx - https://localhost:8000
+  * Rocket - http://localhost:8001
 * PostgreSQL
   * Single database server
   * Separate database per service
@@ -26,9 +29,10 @@
 
 ## Docker
     
-    docker compose up -d
+    make up
+    make down
 
 ## Build and run
 
-    bin/<service>/build
-    bin/<service>/run
+    make <service> build
+    make <service> run

@@ -1,4 +1,4 @@
-const http = require('http');
+import http = require('http');
 
 const hostname = '0.0.0.0';
 const port = 3000;
@@ -6,7 +6,7 @@ const port = 3000;
 const server = http.createServer((req: any, res: any) => {
 	res.statusCode = 200;
 	res.setHeader('Content-Type', 'text/plain');
-	res.end('Hello World');
+	res.end('Hello World!');
 });
 
 server.listen(port, hostname, () => {

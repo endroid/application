@@ -13,22 +13,29 @@ sleep 3
 
 # Minimal example (no framework or queries)
 for i in `seq 1 20`; do curl http://localhost:6001/; done
-ab -c 30 -t 30 http://localhost:6001/ > php-minimal.ab
+ab -c 30 -t 30 http://localhost:6001/ > php-minimal-rr-http.ab
 
 make symfony stop
 make symfony run &>/dev/null &
 sleep 3
 
-# Controller output (no queries)
+# Controller output (no queries) - RR
 for i in `seq 1 20`; do curl http://localhost:6001/hello-world; done
-ab -c 30 -t 30 http://localhost:6001/hello-world > php-symfony-controller.ab
+ab -c 30 -t 30 http://localhost:6001/hello-world > php-symfony-controller-rr-http.ab
 
 # Controller output (plain query)
 
 
-# Controller output (repository find all)
+# Controller output (repository find all) - RR
 for i in `seq 1 20`; do curl http://localhost:6001/repository; done
-ab -c 30 -t 30 http://localhost:6001/repository > php-symfony-repository.ab
+ab -c 30 -t 30 http://localhost:6001/repository > php-symfony-repository-rr-http.ab
+
+# Controller output (repository find all) with HTTPS via Roadrunner
+ab -c 30 -t 30 https://localhost:6001/repository > php-symfony-repository-rr-https.ab
+
+# Controller output (repository find all) with HTTPS via nginx
+for i in `seq 1 20`; do curl https://localhost/repository; done
+ab -c 30 -t 30 https://localhost/repository > php-symfony-repository-nginx-https-rr-http.ab
 
 make symfony stop
 
@@ -39,7 +46,7 @@ sleep 3
 
 # Minimal example (no framework or queries)
 for i in `seq 1 20`; do curl http://localhost:3001/; done
-ab -c 30 -t 30 http://localhost:3001/ > node-minimal.ab
+ab -c 30 -t 30 http://localhost:3001/ > node-minimal-pm2-http.ab
 
 make nestjs stop
 make nestjs run

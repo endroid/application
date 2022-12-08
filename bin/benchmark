@@ -27,11 +27,8 @@ ab -c 30 -t 30 http://localhost:6001/hello-world > php-symfony-controller-rr-htt
 
 
 # Controller output (repository find all) - RR
-for i in `seq 1 20`; do curl http://localhost:6001/repository; done
-ab -c 30 -t 30 http://localhost:6001/repository > php-symfony-repository-rr-http.ab
-
-# Controller output (repository find all) with HTTPS via Roadrunner
-ab -c 30 -t 30 https://localhost:6001/repository > php-symfony-repository-rr-https.ab
+for i in `seq 1 20`; do curl http://localhost:6001/user/list; done
+ab -c 30 -t 30 http://localhost:6001/user/list > php-symfony-repository-rr-http.ab
 
 # Controller output (repository find all) with HTTPS via nginx
 for i in `seq 1 20`; do curl https://localhost/repository; done

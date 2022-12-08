@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -ex
+
+cd "$(dirname "$0")"/..
+
+rm -rf application
+
+npm create svelte@latest application --yes --scope=test
+
+(
+    cd application
+
+    npm install
+
+    cp -r ../base/. ./
+
+    git init && git add -A && git commit -m "Initial commit"
+)

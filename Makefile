@@ -1,4 +1,4 @@
-.PHONY: flask nestjs rocket symfony
+.PHONY: flask nestjs sveltekit rocket symfony
 
 up:
 	@make down
@@ -19,6 +19,9 @@ flask:
 nestjs:
 	@docker compose exec node nestjs/bin/$(filter-out $@,$(MAKECMDGOALS))
 
+sveltekit:
+	@docker compose exec node sveltekit/bin/$(filter-out $@,$(MAKECMDGOALS))
+
 rocket:
 	@docker compose exec rust rocket/bin/$(filter-out $@,$(MAKECMDGOALS))
 
@@ -28,12 +31,14 @@ symfony:
 build-all:
 	@make flask build
 	@make nestjs build
+	@make sveltekit build
 	@make rocket build
 	@make symfony build
 
 run-all:
 	@make flask run
 	@make nestjs run
+	@make sveltekit run
 	@make rocket run
 	@make symfony run
 

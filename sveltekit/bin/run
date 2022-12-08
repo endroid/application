@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -ex
+
+cd "$(dirname "$0")"/..
+
+(
+    cd application
+    npm run build
+
+
+)

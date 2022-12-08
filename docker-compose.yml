@@ -17,7 +17,7 @@ services:
             - '8000:8000'
 
     php:
-        image: ghcr.io/endroid/docker-php:1.2.9
+        image: ghcr.io/endroid/docker-php:1.3.1
         volumes:
             - .:/var/www/html
             - ~/.composer:/home/www-data/.composer
@@ -33,7 +33,7 @@ services:
             - '6001:6000'
 
     node:
-        image: ghcr.io/endroid/docker-node:1.1.9
+        image: ghcr.io/endroid/docker-node:1.2.0
         tty: true
         environment:
             NODE_ENV: development
@@ -46,9 +46,10 @@ services:
             - redis
         ports:
             - '3001:3000'
+            - '5173:5173'
 
     python:
-        image: ghcr.io/endroid/docker-python:1.0.3
+        image: ghcr.io/endroid/docker-python:1.0.4
         tty: true
         volumes:
             - .:/app
@@ -57,7 +58,7 @@ services:
             - '5001:5000'
 
     rust:
-        image: ghcr.io/endroid/docker-rust:1.0.3
+        image: ghcr.io/endroid/docker-rust:1.0.4
         tty: true
         volumes:
             - .:/app
@@ -66,14 +67,14 @@ services:
             - '8001:8000'
 
     redis:
-        image: redis:latest
+        image: redis:7.0.5
         volumes:
             - .docker/redis/data:/data
         expose:
             - 6379
 
     postgres:
-        image: postgres:latest
+        image: postgres:15.1
         environment:
             POSTGRES_DB: nestjs
             POSTGRES_USER: root

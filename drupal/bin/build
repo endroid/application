@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -ex
+
+cd "$(dirname "$0")"/..
+
+rm -rf application
+
+composer create-project drupal/recommended-project:^10.0 application --no-interaction --stability=dev
+
+(
+    cd application
+
+    git init
+    git add -A && git commit -m "Initial commit"
+)

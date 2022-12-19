@@ -1,7 +1,7 @@
 version: '3.8'
 services:
     nginx:
-        image: ghcr.io/endroid/docker-nginx:1.1.2
+        image: ghcr.io/endroid/docker-nginx:latest
         volumes:
             - .:/var/www/html
             - ~/.letsencrypt:/etc/letsencrypt
@@ -9,15 +9,17 @@ services:
             - node
             - php
         ports:
-            - '80:80'
-            - '443:443'
-            - '9000:9000'
-            - '3000:3000'
-            - '5000:5000'
-            - '8000:8000'
+            - '80:80'     # Redirect to HTTPS
+            - '443:443'   # Symfony (Roadrunner)
+            - '3000:3000' # Node
+            - '5000:5000' # Flask
+            - '8000:8000' # Rocket
+            - '9000:9000' # Symfony (PHP-FPM)
+            - '9100:9100' # Laravel (PHP-FPM)
+            - '9200:9200' # Drupal (PHP-FPM)
 
     php:
-        image: ghcr.io/endroid/docker-php:1.3.2
+        image: ghcr.io/endroid/docker-php:latest
         volumes:
             - .:/var/www/html
             - ~/.composer:/home/www-data/.composer
@@ -33,7 +35,7 @@ services:
             - '6001:6000'
 
     node:
-        image: ghcr.io/endroid/docker-node:1.2.0
+        image: ghcr.io/endroid/docker-node:latest
         tty: true
         environment:
             NODE_ENV: development
@@ -49,7 +51,7 @@ services:
             - '5173:5173'
 
     python:
-        image: ghcr.io/endroid/docker-python:1.0.4
+        image: ghcr.io/endroid/docker-python:latest
         tty: true
         volumes:
             - .:/app
@@ -58,7 +60,7 @@ services:
             - '5001:5000'
 
     rust:
-        image: ghcr.io/endroid/docker-rust:1.0.4
+        image: ghcr.io/endroid/docker-rust:latest
         tty: true
         volumes:
             - .:/app

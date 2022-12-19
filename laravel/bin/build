@@ -6,10 +6,13 @@ cd "$(dirname "$0")"/..
 
 rm -rf application
 
-composer create-project drupal/recommended-project:^10.0 application --no-interaction
+composer create-project laravel/laravel application --no-interaction
 
 (
     cd application
+
+	cp -r ../base/. ./
+
 
     git init
     git add -A && git commit -m "Initial commit"

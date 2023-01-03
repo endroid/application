@@ -9,14 +9,14 @@ services:
             - node
             - php
         ports:
-            - '80:80'     # Redirect to HTTPS
-            - '443:443'   # Symfony (Roadrunner)
-            - '3000:3000' # Node
-            - '5000:5000' # Flask
-            - '8000:8000' # Rocket
-            - '9000:9000' # Symfony (PHP-FPM)
-            - '9100:9100' # Laravel (PHP-FPM)
-            - '9200:9200' # Drupal (PHP-FPM)
+            - '80:80'
+            - '443:443'
+            - '3000:3000'
+            - '5000:5000'
+            - '8000:8000'
+            - '9000:9000'
+            - '9100:9100'
+            - '9200:9200'
 
     php:
         image: ghcr.io/endroid/docker-php:latest

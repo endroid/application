@@ -20,6 +20,10 @@
 * Rocket (Rust)
   * Nginx - https://localhost:8000
   * Rocket - http://localhost:8001
+* Drupal (PHP)
+  * Nginx - https://localhost:9100
+* Laravel (PHP)
+  * Nginx - https://localhost:9200
 * PostgreSQL
   * Single database server
   * Separate database per service

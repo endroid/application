@@ -85,3 +85,12 @@ services:
             - .docker/postgres/data:/var/lib/postgresql/data
         ports:
             - '5432:5432'
+
+    blackfire:
+        image: blackfire/blackfire:2
+        environment:
+            # Do not change: instead set these envs on your host
+            BLACKFIRE_SERVER_ID: ~
+            BLACKFIRE_SERVER_TOKEN: ~
+            BLACKFIRE_CLIENT_ID: ~
+            BLACKFIRE_CLIENT_TOKEN: ~

@@ -13,6 +13,12 @@ down:
 	@docker network prune --force
 	@docker compose down --remove-orphans
 
+prune:
+	@docker system prune -a --volumes
+
+certbot:
+	@docker compose exec nginx /etc/nginx/ssl/certbot
+
 drupal:
 	@docker compose exec php drupal/bin/$(filter-out $@,$(MAKECMDGOALS))
 

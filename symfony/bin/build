@@ -21,6 +21,7 @@ composer create-project symfony/skeleton:^6.2 application --no-interaction
 
     cp -r ../base/. ./
 
+    composer config repositories.objectifier vcs git@github.com:endroid/objectifier.git
     composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
     composer config repositories.world vcs git@github.com:endroid/world.git
 
@@ -49,6 +50,7 @@ composer create-project symfony/skeleton:^6.2 application --no-interaction
         endroid/flusher:dev-master \
         endroid/image-placeholder:dev-master \
         endroid/installer:dev-master \
+        endroid/objectifier:dev-master \
         endroid/pdf:dev-master \
         endroid/play-bundle:dev-master \
         endroid/property-access:dev-master \
@@ -62,7 +64,7 @@ composer create-project symfony/skeleton:^6.2 application --no-interaction
         endroid/sudoku:dev-master \
         endroid/teleporter:dev-master \
         endroid/tile:dev-master \
-        endroid/world:dev-main \
+        endroid/world:dev-master \
         --no-update --with-all-dependencies --no-interaction
 
     composer require \

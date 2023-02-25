@@ -6,7 +6,7 @@ cd "$(dirname "$0")"/..
 
 rm -rf application
 
-npm create svelte@latest application --yes --scope=test
+npm init @svelte-add/kit@latest application -- --demos false --with typescript+eslint+prettier
 
 (
     cd application

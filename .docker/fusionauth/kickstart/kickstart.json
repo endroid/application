@@ -1,6 +1,6 @@
 {
     "variables": {
-        "defaultTenantId": "00000000-0000-0000-0000-000000000000",
+        "defaultTenantId": "00000000-0000-0000-0000-000000000001",
         "email": "info@endroid.nl",
         "password": "administrator",
         "symfonyAppId": "00000000-0000-0000-0000-000000000000"
@@ -12,6 +12,17 @@
         }
     ],
     "requests": [
+        {
+            "method": "PATCH",
+            "url": "/api/tenant/#{defaultTenantId}",
+            "body": {
+                "tenant": {
+                    "loginConfiguration": {
+                        "requireAuthentication": false
+                    }
+                }
+            }
+        },
         {
             "method": "POST",
             "url": "/api/application/#{symfonyAppId}",

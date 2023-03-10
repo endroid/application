@@ -1,0 +1,59 @@
+{
+    "variables": {
+        "defaultTenantId": "00000000-0000-0000-0000-000000000000",
+        "email": "info@endroid.nl",
+        "password": "administrator",
+        "symfonyAppId": "00000000-0000-0000-0000-000000000000"
+    },
+    "apiKeys": [
+        {
+            "key": "00000000-0000-0000-0000-00000000",
+            "description": "Development API Key"
+        }
+    ],
+    "requests": [
+        {
+            "method": "POST",
+            "url": "/api/application/#{symfonyAppId}",
+            "body": {
+                "application": {
+                    "name": "Symfony",
+                    "roles": [
+                        { "name": "admin", "description": "Administrator" },
+                        { "name": "member", "description": "Member" }
+                    ],
+                    "oauthConfiguration": {
+                        "authorizedRedirectURLs": ["https://localhost"],
+                        "enabledGrants": ["authorization_code"]
+                    }
+                }
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/user/registration/00000000-0000-0000-0000-000000000000",
+            "body": {
+                "user": {
+                    "email": "#{email}",
+                    "firstName": "Stak",
+                    "lastName": "van Wal",
+                    "password": "#{password}"
+                },
+                "registration": {
+                    "applicationId": "#{FUSIONAUTH_APPLICATION_ID}",
+                    "roles": ["admin"]
+                }
+            }
+        },
+        {
+            "method": "POST",
+            "url": "/api/user/registration/00000000-0000-0000-0000-000000000000",
+            "body": {
+                "registration": {
+                    "applicationId": "#{symfonyAppId}",
+                    "roles": ["admin", "member"]
+                }
+            }
+        }
+    ]
+}

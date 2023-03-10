@@ -26,3 +26,12 @@ services:
     _instanceof:
         Doctrine\Common\EventSubscriber:
             tags: [ doctrine.event_subscriber ]
+
+    FusionAuth\FusionAuthClient:
+        bind:
+            $apiKey: '%env(FUSION_AUTH_API_KEY)%'
+            $baseURL: '%env(FUSION_AUTH_BASE_URL)%'
+
+    App\Security\RoleMapper:
+        bind:
+            $applicationId: '%env(FUSION_AUTH_APPLICATION_ID)%'

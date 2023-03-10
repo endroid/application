@@ -32,6 +32,7 @@ composer create-project symfony/skeleton:^6.2 application --no-interaction
         php:^8.2 \
         api-platform/api-pack \
         doctrine/doctrine-fixtures-bundle \
+        fusionauth/fusionauth-client \
         knplabs/knp-snappy-bundle \
         predis/predis \
         runtime/roadrunner-symfony-nyholm:dev-main \

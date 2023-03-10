@@ -1,5 +1,22 @@
 version: '3.8'
 services:
+    fusionauth:
+        image: fusionauth/fusionauth-app:1.43.0
+        environment:
+            DATABASE_URL: jdbc:postgresql://postgres:5432/fusionauth
+            DATABASE_ROOT_USERNAME: root
+            DATABASE_ROOT_PASSWORD: root
+            DATABASE_USERNAME: fusionauth
+            DATABASE_PASSWORD: fusionauth
+            FUSIONAUTH_APP_RUNTIME_MODE: development
+            FUSIONAUTH_APP_KICKSTART_FILE: /usr/local/fusionauth/kickstart/kickstart.json
+        volumes:
+            - ./.docker/fusionauth/kickstart:/usr/local/fusionauth/kickstart
+        depends_on:
+            - postgres
+        ports:
+            - '9011:9011'
+
     nginx:
         image: ghcr.io/endroid/docker-nginx:latest
         volumes:

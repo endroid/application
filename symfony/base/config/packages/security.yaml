@@ -1,0 +1,22 @@
+security:
+    providers:
+        api_user_provider:
+            id: App\Security\UserProvider
+
+    role_hierarchy:
+        ROLE_MEMBER: ROLE_USER
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        api:
+            pattern: ^/api
+            stateless: true
+            provider: api_user_provider
+            access_token:
+                token_handler: App\Security\ApiTokenHandler
+
+    access_control:
+        - { path: ^/api, roles: ROLE_USER }

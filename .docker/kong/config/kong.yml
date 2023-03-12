@@ -1,0 +1,53 @@
+_format_version: "3.0"
+_transform: true
+
+services:
+    - name: drupal
+      url: https://nginx:9200
+      routes:
+          - name: drupal
+            protocols: [https]
+            paths:
+                - /drupal
+    - name: flask
+      url: http://python:5000
+      routes:
+          - name: flask
+            protocols: [https]
+            paths:
+                - /flask
+    - name: laravel
+      url: https://nginx:9100
+      routes:
+          - name: laravel
+            protocols: [https]
+            paths:
+                - /laravel
+    - name: nestjs
+      url: http://node:3000
+      routes:
+          - name: nestjs
+            protocols: [https]
+            paths:
+                - /nestjs
+    - name: rocket
+      url: http://rust:8000
+      routes:
+          - name: rocket
+            protocols: [https]
+            paths:
+                - /rocket
+    - name: symfony-nginx
+      url: https://nginx:9000
+      routes:
+          - name: symfony-nginx
+            protocols: [https]
+            paths:
+                - /symfony-nginx
+    - name: symfony-roadrunner
+      url: http://php:6000
+      routes:
+          - name: symfony-roadrunner
+            protocols: [https]
+            paths:
+                - /symfony-roadrunner

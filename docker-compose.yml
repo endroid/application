@@ -1,21 +1,28 @@
 version: '3.8'
 services:
-    fusionauth:
-        image: fusionauth/fusionauth-app:1.43.0
+    kong:
+        image: kong/kong-gateway:3.2.1.0
         environment:
-            DATABASE_URL: jdbc:postgresql://postgres:5432/fusionauth
-            DATABASE_ROOT_USERNAME: root
-            DATABASE_ROOT_PASSWORD: root
-            DATABASE_USERNAME: fusionauth
-            DATABASE_PASSWORD: fusionauth
-            FUSIONAUTH_APP_RUNTIME_MODE: development
-            FUSIONAUTH_APP_KICKSTART_FILE: /usr/local/fusionauth/kickstart/kickstart.json
+            KONG_DATABASE: 'off'
+            KONG_DECLARATIVE_CONFIG: /kong/config/kong.yml
+            KONG_SSL_CERT: /kong/ssl/server.crt
+            KONG_SSL_CERT_KEY: /kong/ssl/server.key
+            KONG_PROXY_ACCESS_LOG: /dev/stdout
+            KONG_ADMIN_ACCESS_LOG: /dev/stdout
+            KONG_PROXY_ERROR_LOG: /dev/stderr
+            KONG_ADMIN_ERROR_LOG: /dev/stderr
         volumes:
-            - ./.docker/fusionauth/kickstart:/usr/local/fusionauth/kickstart
+            - ./.docker/kong/config:/kong/config
+            - ./.docker/kong/ssl:/kong/ssl
         depends_on:
-            - postgres
+            - nginx
+            - php
+            - python
+            - rust
+            - node
+            - fusionauth
         ports:
-            - '9011:9011'
+            - '8443:8443'
 
     nginx:
         image: ghcr.io/endroid/docker-nginx:latest
@@ -34,6 +41,23 @@ services:
             - '9000:9000'
             - '9100:9100'
             - '9200:9200'
+
+    fusionauth:
+        image: fusionauth/fusionauth-app:1.43.0
+        environment:
+            DATABASE_URL: jdbc:postgresql://postgres:5432/fusionauth
+            DATABASE_ROOT_USERNAME: root
+            DATABASE_ROOT_PASSWORD: root
+            DATABASE_USERNAME: fusionauth
+            DATABASE_PASSWORD: fusionauth
+            FUSIONAUTH_APP_RUNTIME_MODE: development
+            FUSIONAUTH_APP_KICKSTART_FILE: /usr/local/fusionauth/kickstart/kickstart.json
+        volumes:
+            - ./.docker/fusionauth/kickstart:/usr/local/fusionauth/kickstart
+        depends_on:
+            - postgres
+        ports:
+            - '9011:9011'
 
     php:
         image: ghcr.io/endroid/docker-php:latest

@@ -2,6 +2,8 @@
 
 ## Stack
 
+* Kong API Gateway - https://localhost:8100
+* 
 * Symfony (PHP)
   * Nginx + RoadRunner PROD - https://localhost
   * Nginx DEV - https://localhost:9000

@@ -8,6 +8,9 @@ up:
 login:
 	@docker compose exec -ti $(filter-out $@,$(MAKECMDGOALS)) /bin/bash
 
+login-root:
+	@docker compose exec --user=0 -ti $(filter-out $@,$(MAKECMDGOALS)) /bin/bash
+
 down:
 	@docker stop $$(docker ps -a -q) > /dev/null 2>&1
 	@docker network prune --force

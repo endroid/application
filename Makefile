@@ -1,4 +1,4 @@
-.PHONY: drupal flask laravel nestjs rocket sveltekit symfony
+.PHONY: drupal fiber flask laravel nestjs rocket sveltekit symfony
 
 up:
 	@make down
@@ -25,6 +25,9 @@ certbot:
 drupal:
 	@docker compose exec php drupal/bin/$(filter-out $@,$(MAKECMDGOALS))
 
+fiber:
+	@docker compose exec golang fiber/bin/$(filter-out $@,$(MAKECMDGOALS))
+
 flask:
 	@docker compose exec python flask/bin/$(filter-out $@,$(MAKECMDGOALS))
 
@@ -45,6 +48,7 @@ symfony:
 
 build-all:
 	@make drupal build
+	@make fiber build
 	@make flask build
 	@make laravel build
 	@make nestjs build
@@ -54,6 +58,7 @@ build-all:
 
 run-all:
 	@make drupal run
+	@make fiber run
 	@make flask run
 	@make laravel run
 	@make nestjs run

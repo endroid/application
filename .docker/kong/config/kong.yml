@@ -9,6 +9,13 @@ services:
             protocols: [https]
             paths:
                 - /drupal
+    - name: fiber
+      url: http://golang:6060
+      routes:
+        - name: fiber
+          protocols: [http]
+          paths:
+            - /fiber
     - name: flask
       url: http://python:5000
       routes:

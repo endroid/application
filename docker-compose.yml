@@ -109,6 +109,19 @@ services:
         expose:
             - '8001:8000'
 
+    golang:
+        image: ghcr.io/endroid/docker-golang:latest
+        tty: true
+        environment:
+            GOCACHE: /usr/src/app/.docker/golang/cache
+        volumes:
+            - .:/usr/src/app
+            - ~/.gitconfig:/.gitconfig
+        working_dir: /usr/src/app
+        user: '1000'
+        ports:
+            - '6060:6060'
+
     redis:
         image: redis:7.0.5
         volumes:

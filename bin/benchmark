@@ -2,26 +2,28 @@
 
 set -ex
 
-# Restart all to make sure nothing is running
-make up
-sleep 10
+# GOLANG
+
+# Controller output (no queries) - Roadrunner
+for i in `seq 1 20`; do curl http://localhost:6060/; done
+ab -c 30 -t 30 http://localhost:6060/ > php-golang-roadrunner.ab
 
 # SYMFONY
 
-make symfony run-min &>/dev/null &
-sleep 3
-
-# Minimal example (no framework or queries)
-for i in `seq 1 20`; do curl http://localhost:6001/; done
-ab -c 30 -t 30 http://localhost:6001/ > php-minimal-rr-http.ab
-
-make symfony stop
 make symfony run &>/dev/null &
 sleep 3
 
-# Controller output (no queries) - RR
+# Controller output (no queries) - Nginx
+for i in `seq 1 20`; do curl https://localhost:9000/hello-world; done
+ab -c 30 -t 30 https://localhost:9000/hello-world > php-symfony-controller-nginx.ab
+
+# Controller output (no queries) - Roadrunner
 for i in `seq 1 20`; do curl http://localhost:6001/hello-world; done
-ab -c 30 -t 30 http://localhost:6001/hello-world > php-symfony-controller-rr-http.ab
+ab -c 30 -t 30 http://localhost:6001/hello-world > php-symfony-controller-roadrunner.ab
+
+make symfony stop
+
+exit
 
 # Controller output (plain query)
 

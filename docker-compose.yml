@@ -1,29 +1,5 @@
 version: '3.8'
 services:
-    kong:
-        image: kong/kong-gateway:3.2.1.0
-        environment:
-            KONG_DATABASE: 'off'
-            KONG_DECLARATIVE_CONFIG: /kong/config/kong.yml
-            KONG_SSL_CERT: /kong/ssl/server.crt
-            KONG_SSL_CERT_KEY: /kong/ssl/server.key
-            KONG_PROXY_ACCESS_LOG: /dev/stdout
-            KONG_ADMIN_ACCESS_LOG: /dev/stdout
-            KONG_PROXY_ERROR_LOG: /dev/stderr
-            KONG_ADMIN_ERROR_LOG: /dev/stderr
-        volumes:
-            - ./.docker/kong/config:/kong/config
-            - ./.docker/kong/ssl:/kong/ssl
-        depends_on:
-            - nginx
-            - php
-            - python
-            - rust
-            - node
-            - fusionauth
-        ports:
-            - '8443:8443'
-
     nginx:
         image: ghcr.io/endroid/docker-nginx:latest
         volumes:
@@ -43,7 +19,7 @@ services:
             - '9200:9200'
 
     fusionauth:
-        image: fusionauth/fusionauth-app:1.43.0
+        image: fusionauth/fusionauth-app:1.48.1
         environment:
             DATABASE_URL: jdbc:postgresql://postgres:5432/fusionauth
             DATABASE_ROOT_USERNAME: root
@@ -117,20 +93,18 @@ services:
         volumes:
             - .:/usr/src/app
             - ~/.gitconfig:/.gitconfig
-        working_dir: /usr/src/app
-        user: '1000'
         ports:
             - '6060:6060'
 
     redis:
-        image: redis:7.0.5
+        image: redis:7.2.3-alpine3.18
         volumes:
             - .docker/redis/data:/data
         expose:
             - 6379
 
     postgres:
-        image: postgres:15.1
+        image: postgres:16.1-alpine3.18
         environment:
             POSTGRES_DB: nestjs
             POSTGRES_USER: root
@@ -140,8 +114,24 @@ services:
         ports:
             - '5432:5432'
 
+    meilisearch:
+        image: getmeili/meilisearch:latest
+        environment:
+            - http_proxy
+            - https_proxy
+            - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-masterKey}
+            - MEILI_NO_ANALYTICS=${MEILI_NO_ANALYTICS:-true}
+            - MEILI_ENV=${MEILI_ENV:-development}
+            - MEILI_LOG_LEVEL
+            - MEILI_DB_PATH=${MEILI_DB_PATH:-/data.ms}
+        ports:
+            - ${MEILI_PORT:-7700}:7700
+        volumes:
+            - .docker/meilisearch/data.ms:/data.ms
+        restart: unless-stopped
+
     zookeeper:
-        image: bitnami/zookeeper:3.8.1
+        image: bitnami/zookeeper:3.9.1
         environment:
             ZOO_PORT_NUMBER: 2181
             ZOO_SERVER_ID: 1
@@ -151,7 +141,7 @@ services:
             - '2181:2181'
 
     kafka:
-        image: confluentinc/cp-kafka:7.4.0
+        image: confluentinc/cp-kafka:7.4.3
         environment:
             KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
             KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
@@ -177,7 +167,7 @@ services:
             - '8080:8080'
 
     blackfire:
-        image: blackfire/blackfire:2
+        image: blackfire/blackfire:2.23.0
         environment:
             # Do not change: instead set these envs on your host
             BLACKFIRE_SERVER_ID: ~

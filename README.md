@@ -2,16 +2,12 @@
 
 ## Stack
 
-* Kong API Gateway - https://localhost:8100
-* 
 * Symfony (PHP)
-  * Nginx + RoadRunner PROD - https://localhost
-  * Nginx DEV - https://localhost:9000
-  * RoadRunner PROD - http://localhost:6001
-  * RoadRunner PROD - https://localhost:6001
-  * Roadrunner Application Server
+  * Nginx + RoadRunner - https://localhost
+  * Nginx - https://localhost:9000
+  * RoadRunner - http://localhost:6001
   * API Platform (incl. GraphQL)
-* NestJS (NodeJS / Typescript)
+* NestJS (NodeJS + TypeScript)
   * Nginx - https://localhost:3000
   * Node - http://localhost:3001
   * TypeORM (incl. fixtures + migrations)

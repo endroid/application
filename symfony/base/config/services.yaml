@@ -23,10 +23,6 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    _instanceof:
-        Doctrine\Common\EventSubscriber:
-            tags: [ doctrine.event_subscriber ]
-
     FusionAuth\FusionAuthClient:
         bind:
             $apiKey: '%env(FUSION_AUTH_API_KEY)%'
@@ -35,3 +31,6 @@ services:
     App\Security\RoleMapper:
         bind:
             $applicationId: '%env(FUSION_AUTH_APPLICATION_ID)%'
+
+    Meilisearch\Client:
+        arguments: ['%env(string:MEILISEARCH_URL)%', '%env(string:MEILISEARCH_API_KEY)%']

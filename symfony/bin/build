@@ -6,7 +6,7 @@ cd "$(dirname "$0")"/..
 
 rm -rf application
 
-composer create-project symfony/skeleton:^6.2 application --no-interaction
+composer create-project symfony/skeleton:^6.4 application --no-interaction --stability=dev
 
 (
     cd application
@@ -21,7 +21,6 @@ composer create-project symfony/skeleton:^6.2 application --no-interaction
 
     cp -r ../base/. ./
 
-    composer config repositories.objectifier vcs git@github.com:endroid/objectifier.git
     composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
     composer config repositories.world vcs git@github.com:endroid/world.git
 
@@ -30,43 +29,43 @@ composer create-project symfony/skeleton:^6.2 application --no-interaction
 
     composer require \
         php:^8.2 \
-        api-platform/api-pack \
+        api-platform/core \
         doctrine/doctrine-fixtures-bundle \
         fusionauth/fusionauth-client \
         knplabs/knp-snappy-bundle \
         predis/predis \
-        runtime/roadrunner-symfony-nyholm:dev-main \
+        baldinof/roadrunner-bundle \
+        meilisearch/meilisearch-php \
         symfony/messenger:* \
         symfony/phpunit-bridge:* \
         symfony/uid:* \
         webapp \
         webonyx/graphql-php \
-        endroid/asset:dev-master \
-        endroid/calendar:dev-master \
-        endroid/composer-message:dev-master \
-        endroid/data-sanitize:dev-master \
-        endroid/data-sanitize-bundle:dev-master \
-        endroid/data-sanitize-demo-bundle:dev-master \
-        endroid/embed:dev-master \
-        endroid/flusher:dev-master \
-        endroid/image-placeholder:dev-master \
-        endroid/installer:dev-master \
-        endroid/objectifier:dev-master \
-        endroid/pdf:dev-master \
-        endroid/play-bundle:dev-master \
-        endroid/pokemon:dev-master \
-        endroid/property-access:dev-master \
-        endroid/qr-code:dev-master \
-        endroid/qr-code-bundle:dev-master \
-        endroid/quality:dev-master \
-        endroid/simple-spreadsheet:dev-master \
-        endroid/soccer-calendar:dev-master \
-        endroid/soccer-calendar-bundle:dev-master \
-        endroid/soccer-data:dev-master \
-        endroid/sudoku:dev-master \
-        endroid/teleporter:dev-master \
-        endroid/tile:dev-master \
-        endroid/world:dev-master \
+        endroid/asset:dev-main \
+        endroid/calendar:dev-main \
+        endroid/composer-message:dev-main \
+        endroid/data-sanitize:dev-main \
+        endroid/data-sanitize-bundle:dev-main \
+        endroid/data-sanitize-demo-bundle:dev-main \
+        endroid/embed:dev-main \
+        endroid/flusher:dev-main \
+        endroid/image-placeholder:dev-main \
+        endroid/installer:dev-main \
+        endroid/pdf:dev-main \
+        endroid/play-bundle:dev-main \
+        endroid/pokemon:dev-main \
+        endroid/property-access:dev-main \
+        endroid/qr-code:dev-main \
+        endroid/qr-code-bundle:dev-main \
+        endroid/quality:dev-main \
+        endroid/simple-spreadsheet:dev-main \
+        endroid/soccer-calendar:dev-main \
+        endroid/soccer-calendar-bundle:dev-main \
+        endroid/soccer-data:dev-main \
+        endroid/sudoku:dev-main \
+        endroid/teleporter:dev-main \
+        endroid/tile:dev-main \
+        endroid/world:dev-main \
         --no-update --with-all-dependencies --no-interaction
 
     composer require \

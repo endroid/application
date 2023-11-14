@@ -5,34 +5,29 @@ declare(strict_types=1);
 namespace App\EventSubscriber;
 
 use App\Entity\User;
-use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PrePersistEventArgs;
 use Doctrine\ORM\Events;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
+use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class HashPasswordSubscriber implements EventSubscriber
+#[AsEventListener(event: Events::prePersist)]
+#[AsEventListener(event: Events::preUpdate)]
+final readonly class HashPasswordSubscriber
 {
     public function __construct(
         private UserPasswordHasherInterface $passwordHasher
     ) {
     }
 
-    public function getSubscribedEvents(): array
+    public function onPrePersist(PrePersistEventArgs $args): void
     {
-        return [
-            Events::prePersist,
-            Events::preUpdate,
-        ];
+        $this->updatePassword($args->getObject());
     }
 
-    public function prePersist(LifecycleEventArgs $args): void
+    public function onPreUpdate(PreUpdateEventArgs $args): void
     {
-        $this->updatePassword($args->getEntity());
-    }
-
-    public function preUpdate(LifecycleEventArgs $args): void
-    {
-        $this->updatePassword($args->getEntity());
+        $this->updatePassword($args->getObject());
     }
 
     private function updatePassword(object $user): void

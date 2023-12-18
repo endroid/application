@@ -16,12 +16,12 @@ final readonly class UserProvider implements UserProviderInterface
     ) {
     }
 
-    public function refreshUser(UserInterface $user)
+    public function refreshUser(UserInterface $user): UserInterface
     {
         die('refresh');
     }
 
-    public function supportsClass(string $class)
+    public function supportsClass(string $class): bool
     {
         die('supports');
     }

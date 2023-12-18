@@ -6,7 +6,7 @@ cd "$(dirname "$0")"/..
 
 rm -rf application
 
-composer create-project symfony/skeleton:^6.4 application --no-interaction --stability=dev
+composer create-project symfony/skeleton:^7.0 application --no-interaction
 
 (
     cd application
@@ -14,7 +14,7 @@ composer create-project symfony/skeleton:^6.4 application --no-interaction --sta
     composer config minimum-stability dev
     composer config prefer-stable true
     composer config extra.symfony.allow-contrib true
-    composer config platform.php 8.2
+    composer config platform.php 8.3
 
     composer config --global --no-plugins allow-plugins.endroid/composer-message true
     composer config --global --no-plugins allow-plugins.endroid/installer true
@@ -24,17 +24,20 @@ composer create-project symfony/skeleton:^6.4 application --no-interaction --sta
     composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
     composer config repositories.world vcs git@github.com:endroid/world.git
 
+    composer config repositories.snappy-bundle vcs git@github.com:Chris53897/KnpSnappyBundle.git
+
     # Use source when installing personal libraries
     jq '.config."preferred-install"."endroid/*" = "source"' composer.json | sponge composer.json
 
     composer require \
-        php:^8.2 \
+        php:^8.3 \
         api-platform/core \
         doctrine/doctrine-fixtures-bundle \
         fusionauth/fusionauth-client \
         knplabs/knp-snappy-bundle \
         predis/predis \
         baldinof/roadrunner-bundle \
+        knplabs/knp-snappy-bundle:dev-feature/allow-symfony-7 \
         meilisearch/meilisearch-php \
         symfony/messenger:* \
         symfony/phpunit-bridge:* \

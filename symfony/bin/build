@@ -81,6 +81,8 @@ composer create-project symfony/skeleton:^7.0 application --no-interaction
     bin/console doctrine:database:create
     bin/console doctrine:migrations:diff
 
+    bin/console importmap:require bootstrap datatables.net jquery
+
     bin/setup
 
     bin/console doctrine:fixtures:load --no-interaction

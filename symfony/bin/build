@@ -82,7 +82,7 @@ composer create-project symfony/skeleton:^7.0 application --no-interaction
     bin/console doctrine:database:create
     bin/console doctrine:migrations:diff
 
-    bin/console importmap:require datatables.net jquery js-confetti
+    bin/console importmap:require datatables.net jquery js-confetti @hotwired/turbo@8.0.0-beta.2
     bin/console tailwind:init
     bin/console tailwind:build
 

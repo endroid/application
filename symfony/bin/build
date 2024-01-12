@@ -39,6 +39,7 @@ composer create-project symfony/skeleton:^7.0 application --no-interaction
         baldinof/roadrunner-bundle \
         knplabs/knp-snappy-bundle:dev-feature/allow-symfony-7 \
         meilisearch/meilisearch-php \
+        runtime/frankenphp-symfony \
         symfony/messenger:* \
         symfony/phpunit-bridge:* \
         symfonycasts/tailwind-bundle:* \

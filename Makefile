@@ -4,7 +4,7 @@ up:
 	@make down
 	@docker compose pull
 	@docker compose build
-	@docker compose up -d
+	@docker compose up -d --force-recreate
 
 login:
 	@docker compose exec -ti $(filter-out $@,$(MAKECMDGOALS)) /bin/bash

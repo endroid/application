@@ -15,7 +15,8 @@ services:
         image: ghcr.io/endroid/docker-nginx:latest
         volumes:
             - .:/var/www/html
-            - ~/.letsencrypt:/etc/letsencrypt
+            - ./.docker/nginx/letsencrypt:/etc/letsencrypt/live/endroid.nl
+            - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
         depends_on:
             - node
             - php

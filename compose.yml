@@ -1,15 +1,15 @@
 version: '3.8'
 services:
-    frankenphp:
-        image: dunglas/frankenphp
-        environment:
-            APP_RUNTIME: Runtime\FrankenPhpSymfony\Runtime
-            FRANKENPHP_CONFIG: 'worker ./public/index.php'
-        volumes:
-            - ./symfony/application:/app
-        ports:
-            - '81:80'
-            - '444:443'
+#    frankenphp:
+#        image: dunglas/frankenphp
+#        environment:
+#            APP_RUNTIME: Runtime\FrankenPhpSymfony\Runtime
+#            FRANKENPHP_CONFIG: 'worker ./public/index.php'
+#        volumes:
+#            - ./symfony/application:/app
+#        ports:
+#            - '81:80'
+#            - '444:443'
 
     nginx:
         image: ghcr.io/endroid/docker-nginx:latest

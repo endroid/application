@@ -143,41 +143,41 @@ services:
             - .docker/meilisearch/data.ms:/data.ms
         restart: unless-stopped
 
-    zookeeper:
-        image: bitnami/zookeeper:3.9.1
-        environment:
-            ZOO_PORT_NUMBER: 2181
-            ZOO_SERVER_ID: 1
-            ZOO_SERVERS: zookeeper:2888:3888
-            ALLOW_ANONYMOUS_LOGIN: 'yes'
-        ports:
-            - '2181:2181'
-
-    kafka:
-        image: confluentinc/cp-kafka:7.4.3
-        environment:
-            KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
-            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
-            KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
-            KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-            KAFKA_BROKER_ID: 1
-            KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-            KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
-            KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
-        ports:
-            - "9092:9092"
-            - "29092:29092"
-
-    kafka-ui:
-        image: provectuslabs/kafka-ui:latest
-        depends_on:
-            - kafka
-        environment:
-            KAFKA_CLUSTERS_0_NAME: local
-            KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:19092
-            DYNAMIC_CONFIG_ENABLED: 'true'
-        ports:
-            - '8080:8080'
+#    zookeeper:
+#        image: bitnami/zookeeper:3.9.1
+#        environment:
+#            ZOO_PORT_NUMBER: 2181
+#            ZOO_SERVER_ID: 1
+#            ZOO_SERVERS: zookeeper:2888:3888
+#            ALLOW_ANONYMOUS_LOGIN: 'yes'
+#        ports:
+#            - '2181:2181'
+#
+#    kafka:
+#        image: confluentinc/cp-kafka:7.4.3
+#        environment:
+#            KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
+#            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
+#            KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+#            KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
+#            KAFKA_BROKER_ID: 1
+#            KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+#            KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
+#            KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+#        ports:
+#            - "9092:9092"
+#            - "29092:29092"
+#
+#    kafka-ui:
+#        image: provectuslabs/kafka-ui:latest
+#        depends_on:
+#            - kafka
+#        environment:
+#            KAFKA_CLUSTERS_0_NAME: local
+#            KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:19092
+#            DYNAMIC_CONFIG_ENABLED: 'true'
+#        ports:
+#            - '8080:8080'
 
     blackfire:
         image: blackfire/blackfire:2.23.0

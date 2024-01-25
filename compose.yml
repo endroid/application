@@ -16,6 +16,7 @@ services:
         volumes:
             - .:/var/www/html
             - ./.docker/nginx/letsencrypt:/etc/letsencrypt/live/endroid.nl
+            - ./.docker/nginx/ssl:/etc/nginx/ssl
             - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
         depends_on:
             - node

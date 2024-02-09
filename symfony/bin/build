@@ -86,7 +86,6 @@ composer create-project symfony/skeleton:^7.0 application --no-interaction
     bin/console importmap:require datatables.net js-confetti @hotwired/turbo@8.0.0-beta.2
     bin/console tailwind:init
     bin/console tailwind:build
-    bin/console asset-map:compile
 
     bin/setup
 

@@ -2,9 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-.data-table { @apply min-w-full }
-.data-table thead { @apply bg-white border-b }
-.data-table thead th { @apply text-sm font-medium text-gray-900 px-6 py-4 text-left }
-.data-table tbody tr:nth-child(odd) { @apply bg-gray-100 border-b }
-.data-table tbody tr:nth-child(even) { @apply bg-white border-b }
-.data-table tbody td { @apply text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap }
+table.data-table {
+    @apply min-w-full;
+    thead {
+        @apply bg-white border-b;
+        th { @apply text-sm font-medium text-gray-900 px-6 py-4 text-left }
+    }
+    tbody {
+        tr:nth-child(odd) { @apply bg-gray-100 border-b }
+        tr:nth-child(even) { @apply bg-white border-b }
+        td { @apply text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap }
+    }
+}

@@ -8,11 +8,10 @@ export default class extends Controller {
             'paging': this.data.get('paging') === 'true',
             'searching': this.data.get('search') === 'true',
         };
-        if (this.data.get('order')) {
+        if (this.data.get('order-column')) {
             let orderDirection = this.data.get('order-direction') === 'asc' ? 'asc' : 'desc';
-            options['order'] = [parseInt(this.data.get('order')), orderDirection];
-        }
-        if (this.data.get('orderable') === 'false') {
+            options['order'] = [parseInt(this.data.get('order-column')), orderDirection];
+        } else {
             options['columnDefs'] = [{
                 targets: "_all",
                 orderable: false

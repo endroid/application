@@ -24,8 +24,6 @@ composer create-project symfony/skeleton:^7.0 application --no-interaction
     composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
     composer config repositories.world vcs git@github.com:endroid/world.git
 
-    composer config repositories.snappy-bundle vcs git@github.com:Chris53897/KnpSnappyBundle.git
-
     # Use source when installing personal libraries
     jq '.config."preferred-install"."endroid/*" = "source"' composer.json | sponge composer.json
 
@@ -37,7 +35,6 @@ composer create-project symfony/skeleton:^7.0 application --no-interaction
         knplabs/knp-snappy-bundle \
         predis/predis \
         baldinof/roadrunner-bundle \
-        knplabs/knp-snappy-bundle:dev-feature/allow-symfony-7 \
         meilisearch/meilisearch-php \
         runtime/frankenphp-symfony \
         symfony/messenger:* \

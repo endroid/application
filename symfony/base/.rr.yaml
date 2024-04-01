@@ -9,5 +9,8 @@ http:
   middleware: ['static']
   pool:
     num_workers: 2
+    supervisor:
+        ttl: 300s
+        max_worker_memory: 256
   static:
     dir: './public'

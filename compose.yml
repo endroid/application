@@ -1,4 +1,3 @@
-version: '3.8'
 services:
 #    frankenphp:
 #        image: dunglas/frankenphp
@@ -31,22 +30,23 @@ services:
             - '9100:9100'
             - '9200:9200'
 
-    fusionauth:
-        image: fusionauth/fusionauth-app:1.48.1
-        environment:
-            DATABASE_URL: jdbc:postgresql://postgres:5432/fusionauth
-            DATABASE_ROOT_USERNAME: root
-            DATABASE_ROOT_PASSWORD: root
-            DATABASE_USERNAME: fusionauth
-            DATABASE_PASSWORD: fusionauth
-            FUSIONAUTH_APP_RUNTIME_MODE: development
-            FUSIONAUTH_APP_KICKSTART_FILE: /usr/local/fusionauth/kickstart/kickstart.json
-        volumes:
-            - ./.docker/fusionauth/kickstart:/usr/local/fusionauth/kickstart
-        depends_on:
-            - postgres
-        ports:
-            - '9011:9011'
+#    fusionauth:
+#        image: fusionauth/fusionauth-app:1.48.1
+#        environment:
+#            DATABASE_URL: jdbc:postgresql://postgres:5432/fusionauth
+#            DATABASE_ROOT_USERNAME: root
+#            DATABASE_ROOT_PASSWORD: root
+#            DATABASE_USERNAME: fusionauth
+#            DATABASE_PASSWORD: fusionauth
+#            FUSIONAUTH_APP_MEMORY: 256M
+#            FUSIONAUTH_APP_RUNTIME_MODE: development
+#            FUSIONAUTH_APP_KICKSTART_FILE: /usr/local/fusionauth/kickstart/kickstart.json
+#        volumes:
+#            - ./.docker/fusionauth/kickstart:/usr/local/fusionauth/kickstart
+#        depends_on:
+#            - postgres
+#        ports:
+#            - '9011:9011'
 
     php:
         image: ghcr.io/endroid/docker-php:latest

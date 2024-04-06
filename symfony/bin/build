@@ -7,6 +7,7 @@ cd "$(dirname "$0")"/..
 rm -rf application
 
 composer create-project symfony/skeleton:^7.0 application --no-interaction
+cp -r base/. application/
 
 (
     cd application
@@ -18,8 +19,6 @@ composer create-project symfony/skeleton:^7.0 application --no-interaction
 
     composer config --global --no-plugins allow-plugins.endroid/composer-message true
     composer config --global --no-plugins allow-plugins.endroid/installer true
-
-    cp -r ../base/. ./
 
     composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
     composer config repositories.world vcs git@github.com:endroid/world.git
@@ -87,8 +86,6 @@ composer create-project symfony/skeleton:^7.0 application --no-interaction
     bin/console tailwind:build
 
     bin/setup
-
-    bin/console doctrine:fixtures:load --no-interaction
 
     git init
     git add -A && git commit -m "Initial commit"

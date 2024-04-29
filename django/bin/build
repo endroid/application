@@ -11,6 +11,16 @@ mkdir application
 (
     cd application
 
+    python -m venv .venv
+    source .venv/bin/activate
+
+    pip install uwsgi django
+
+    django-admin startproject project .
+
+    python manage.py migrate
+    python manage.py startapp app
+
     cp -r ../base/. ./
 
     git init

@@ -186,13 +186,13 @@ http {
         }
     }
 
-    # Flask (Python)
+    # Django (Python)
 
     server {
         listen 5000 ssl;
         http2 on;
         server_name endroid.nl;
-        root /var/www/html/flask/application/static;
+        root /var/www/html/django/application/static;
         ssl_certificate /etc/nginx/ssl/server.crt;
         ssl_certificate_key /etc/nginx/ssl/server.key;
 

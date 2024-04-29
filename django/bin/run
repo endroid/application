@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -ex
+
+cd "$(dirname "$0")"/..
+
+{
+    cd application
+
+    source .venv/bin/activate
+
+    uwsgi --http :5000 --module mysite.wsgi
+}

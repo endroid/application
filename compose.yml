@@ -10,25 +10,25 @@ services:
 #            - '81:80'
 #            - '444:443'
 
-    nginx:
-        image: ghcr.io/endroid/docker-nginx:latest
-        volumes:
-            - .:/var/www/html
-            - ./.docker/nginx/letsencrypt:/etc/letsencrypt
-            - ./.docker/nginx/ssl:/etc/nginx/ssl
-            - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-        depends_on:
-            - node
-            - php
-        ports:
-            - '80:80'
-            - '443:443'
-            - '3000:3000'
-            - '5000:5000'
-            - '8000:8000'
-            - '9000:9000'
-            - '9100:9100'
-            - '9200:9200'
+#    nginx:
+#        image: ghcr.io/endroid/docker-nginx:latest
+#        volumes:
+#            - .:/var/www/html
+#            - ./.docker/nginx/letsencrypt:/etc/letsencrypt
+#            - ./.docker/nginx/ssl:/etc/nginx/ssl
+#            - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+#        depends_on:
+#            - node
+#            - php
+#        ports:
+#            - '80:80'
+#            - '443:443'
+#            - '3000:3000'
+#            - '5000:5000'
+#            - '8000:8000'
+#            - '9000:9000'
+#            - '9100:9100'
+#            - '9200:9200'
 
 #    fusionauth:
 #        image: fusionauth/fusionauth-app:1.48.1
@@ -47,6 +47,25 @@ services:
 #            - postgres
 #        ports:
 #            - '9011:9011'
+
+    caddy:
+        image: caddy:2.8-alpine
+        restart: unless-stopped
+        cap_add:
+            - NET_ADMIN
+        ports:
+            - '80:80'
+            - '443:443'
+            - '443:443/udp'
+            - '9000:9000'
+            - '9000:9000/udp'
+        depends_on:
+            - php
+        volumes:
+            - .:/var/www/html
+            - ./.docker/caddy/Caddyfile:/etc/caddy/Caddyfile
+            - ./.docker/caddy/data:/data
+        command: ["caddy", "run", "--watch", "--config", "/etc/caddy/Caddyfile"]
 
     php:
         image: ghcr.io/endroid/docker-php:latest

@@ -1,0 +1,20 @@
+localhost, endroid.nl {
+	root * /var/www/html/symfony/application/public
+
+	encode zstd gzip
+	file_server
+
+	php_fastcgi php:9000 {
+		resolve_root_symlink
+	}
+
+	@phpFile {
+		path *.php*
+	}
+
+	error @phpFile "Not found" 404
+}
+
+localhost {
+    tls internal
+}

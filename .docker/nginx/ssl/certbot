@@ -1,3 +1,0 @@
-#!/bin/sh
-
-certbot --nginx -d endroid.nl --non-interactive --agree-tos --email info@endroid.nl

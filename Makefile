@@ -20,8 +20,8 @@ down:
 prune:
 	@docker system prune -a --volumes
 
-certbot:
-	@docker compose exec nginx /etc/nginx/ssl/certbot
+install-ca:
+	.docker/caddy/ssl/install-ca
 
 django:
 	@docker compose exec python django/bin/$(filter-out $@,$(MAKECMDGOALS))

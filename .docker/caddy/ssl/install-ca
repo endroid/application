@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -ex
+
+cd "$(dirname "$0")"/..
+
+sudo cp data/caddy/pki/authorities/local/root.crt /usr/share/ca-certificates/caddy.crt
+sudo dpkg-reconfigure ca-certificates
+
+sudo apt-get install libnss3-tools
+certutil -d sql:$HOME/.pki/nssdb -A -t "C,," -n "Caddy" -i data/caddy/pki/authorities/local/root.crt

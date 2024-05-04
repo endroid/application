@@ -1,20 +1,76 @@
-localhost, endroid.nl {
+# Symfony (Roadrunner)
+localhost:443 {
 	root * /var/www/html/symfony/application/public
-
+	tls internal
 	encode zstd gzip
 	file_server
+	reverse_proxy php:6000
+}
 
+# Symfony (PHP-FPM)
+localhost:9000 {
+	root * /var/www/html/symfony/application/public
+	tls internal
+	encode zstd gzip
+	file_server
 	php_fastcgi php:9000 {
 		resolve_root_symlink
 	}
-
 	@phpFile {
 		path *.php*
 	}
-
 	error @phpFile "Not found" 404
 }
 
-localhost {
-    tls internal
+# Laravel (PHP-FPM)
+localhost:9100 {
+	root * /var/www/html/laravel/application/public
+	tls internal
+	encode zstd gzip
+	file_server
+	php_fastcgi php:9000 {
+		resolve_root_symlink
+	}
+	@phpFile {
+		path *.php*
+	}
+	error @phpFile "Not found" 404
+}
+
+# Drupal (PHP-FPM)
+localhost:9200 {
+	root * /var/www/html/drupal/application/web
+	tls internal
+	encode zstd gzip
+	file_server
+	php_fastcgi php:9000 {
+		resolve_root_symlink
+	}
+}
+
+# NestJS (NodeJS)
+localhost:3000 {
+	root * /var/www/html/nestjs/application/public
+	tls internal
+	encode zstd gzip
+	file_server
+	reverse_proxy node:3000
+}
+
+# Django (Python)
+localhost:5000 {
+	root * /var/www/html/django/application/public
+	tls internal
+	encode zstd gzip
+	file_server
+	reverse_proxy python:5000
+}
+
+# Rocket (Rust)
+localhost:8000 {
+	root * /var/www/html/rocket/application/public
+	tls internal
+	encode zstd gzip
+	file_server
+	reverse_proxy rust:8000
 }

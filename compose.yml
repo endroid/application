@@ -51,12 +51,17 @@ services:
 
     php:
         image: ghcr.io/endroid/docker-php:latest
+        environment:
+            XDEBUG_MODE: off
         volumes:
             - .:/var/www/html
+            - ./.docker/php/zzzz-custom.ini:/usr/local/etc/php/conf.d/zzzz-custom.ini
             - ~/.composer:/home/www-data/.composer
             - ~/.gitconfig:/home/www-data/.gitconfig
             - ~/.gitignore_global:/home/www-data/.gitignore_global
             - ~/.ssh:/home/www-data/.ssh
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
         depends_on:
             - postgres
             - redis

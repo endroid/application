@@ -25,9 +25,7 @@
 * PostgreSQL
   * Single database server
   * Separate database per service
-* Redis
-  * Single server
-  * Separate namespace per service
+* Dragonfly
 
 ## Docker
     

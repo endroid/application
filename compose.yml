@@ -114,7 +114,7 @@ services:
             - '6060:6060'
 
     dragonfly:
-        image: docker.dragonflydb.io/dragonflydb/dragonfly:1.19.0
+        image: docker.dragonflydb.io/dragonflydb/dragonfly:v1.19.0
         volumes:
             - .docker/dragonfly/data:/data
         expose:
@@ -132,7 +132,7 @@ services:
             - '5432:5432'
 
     meilisearch:
-        image: getmeili/meilisearch:latest
+        image: getmeili/meilisearch:v1.8.2
         environment:
             - http_proxy
             - https_proxy

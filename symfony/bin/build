@@ -6,7 +6,7 @@ cd "$(dirname "$0")"/..
 
 rm -rf application
 
-composer create-project symfony/skeleton:^7.0 application --no-interaction
+composer create-project symfony/skeleton:^7.2 application --no-interaction
 cp -r base/. application/
 
 (
@@ -15,32 +15,34 @@ cp -r base/. application/
     composer config minimum-stability dev
     composer config prefer-stable true
     composer config extra.symfony.allow-contrib true
-    composer config platform.php 8.3
+    composer config platform.php 8.4
 
     composer config --global --no-plugins allow-plugins.endroid/composer-message true
     composer config --global --no-plugins allow-plugins.endroid/installer true
 
+    composer config repositories.event-sourcing vcs git@github.com:endroid/event-sourcing.git
     composer config repositories.play-bundle vcs git@github.com:endroid/play-bundle.git
+    composer config repositories.soccer-bundle vcs git@github.com:endroid/soccer-bundle.git
     composer config repositories.world vcs git@github.com:endroid/world.git
 
     # Use source when installing personal libraries
     jq '.config."preferred-install"."endroid/*" = "source"' composer.json | sponge composer.json
 
     composer require \
-        php:^8.3 \
+        php:^8.4 \
         api-platform/core \
+        baldinof/roadrunner-bundle \
         doctrine/doctrine-fixtures-bundle \
+        friendsofopentelemetry/opentelemetry-bundle \
         fusionauth/fusionauth-client \
         knplabs/knp-snappy-bundle \
-        predis/predis \
-        baldinof/roadrunner-bundle \
         meilisearch/meilisearch-php \
+        predis/predis \
         symfony/messenger:* \
         symfony/phpunit-bridge:* \
         symfonycasts/tailwind-bundle:* \
         symfony/uid:* \
         webapp \
-        webonyx/graphql-php \
         endroid/asset:dev-main \
         endroid/calendar:dev-main \
         endroid/composer-message:dev-main \
@@ -48,6 +50,7 @@ cp -r base/. application/
         endroid/data-sanitize-bundle:dev-main \
         endroid/data-sanitize-demo-bundle:dev-main \
         endroid/embed:dev-main \
+        endroid/event-sourcing:dev-main \
         endroid/flusher:dev-main \
         endroid/image-placeholder:dev-main \
         endroid/installer:dev-main \
@@ -59,9 +62,7 @@ cp -r base/. application/
         endroid/qr-code-bundle:dev-main \
         endroid/quality:dev-main \
         endroid/simple-spreadsheet:dev-main \
-        endroid/soccer-calendar:dev-main \
-        endroid/soccer-calendar-bundle:dev-main \
-        endroid/soccer-data:dev-main \
+        endroid/soccer-bundle:dev-main \
         endroid/sudoku:dev-main \
         endroid/teleporter:dev-main \
         endroid/tile:dev-main \

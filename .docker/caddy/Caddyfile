@@ -57,6 +57,14 @@ localhost:3000 {
 	reverse_proxy node:3000
 }
 
+# Fresh (Deno)
+localhost:3100 {
+	tls internal
+	encode zstd gzip
+	file_server
+	reverse_proxy deno:8000
+}
+
 # Django (Python)
 localhost:5000 {
 	root * /var/www/html/django/application/public

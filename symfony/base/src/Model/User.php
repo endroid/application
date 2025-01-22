@@ -15,6 +15,10 @@ final readonly class User implements UserInterface
 
     public function getUserIdentifier(): string
     {
+        if ('' === $this->userIdentifier) {
+            throw new \LogicException('The user identifier should always be a non-empty string');
+        }
+
         return $this->userIdentifier;
     }
 

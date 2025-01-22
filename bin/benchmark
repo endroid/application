@@ -2,59 +2,9 @@
 
 set -ex
 
-# GOLANG
+# DENO
+for i in `seq 1 20`; do curl http://localhost:3101/; done
+ab -c 30 -t 30 http://localhost:3101/ > .benchmarks/php-deno-fresh.ab
 
-# Controller output (no queries) - Roadrunner
-for i in `seq 1 20`; do curl http://localhost:6060/; done
-ab -c 30 -t 30 http://localhost:6060/ > php-golang-roadrunner.ab
-
-# SYMFONY
-
-make symfony run &>/dev/null &
-sleep 3
-
-# Controller output (no queries) - Nginx
-for i in `seq 1 20`; do curl https://localhost:9000/hello-world; done
-ab -c 30 -t 30 https://localhost:9000/hello-world > php-symfony-controller-nginx.ab
-
-# Controller output (no queries) - Roadrunner
-for i in `seq 1 20`; do curl http://localhost:6001/hello-world; done
-ab -c 30 -t 30 http://localhost:6001/hello-world > php-symfony-controller-roadrunner.ab
-
-make symfony stop
-
-exit
-
-# Controller output (plain query)
-
-
-# Controller output (repository find all) - RR
-for i in `seq 1 20`; do curl http://localhost:6001/user/list; done
-ab -c 30 -t 30 http://localhost:6001/user/list > php-symfony-repository-rr-http.ab
-
-# Controller output (repository find all) with HTTPS via nginx
-for i in `seq 1 20`; do curl https://localhost/repository; done
-ab -c 30 -t 30 https://localhost/repository > php-symfony-repository-nginx-https-rr-http.ab
-
-make symfony stop
-
-# NESTJS
-
-make nestjs run-min
-sleep 3
-
-# Minimal example (no framework or queries)
-for i in `seq 1 20`; do curl http://localhost:3001/; done
-ab -c 30 -t 30 http://localhost:3001/ > node-minimal-pm2-http.ab
-
-make nestjs stop
-make nestjs run
-sleep 3
-
-# Controller output (no queries)
-
-# Controller output (plain query)
-
-# Controller output (repository find all)
-
-make nestjs stop
+for i in `seq 1 20`; do curl https://localhost:3100/; done
+ab -c 30 -t 30 https://localhost:3100/ > .benchmarks/php-deno-fresh-caddy.ab

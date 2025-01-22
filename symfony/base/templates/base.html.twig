@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="view-transition" content="same-origin">
+    <meta name="turbo-prefetch" content="false">
     <title>{% block title %}Endroid{% endblock %}</title>
-    {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% block javascripts %}{% endblock %}
 </head>
 <body>
     {% block body %}{% endblock %}

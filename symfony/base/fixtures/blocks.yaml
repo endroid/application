@@ -1,0 +1,112 @@
+hotwire_turbo:
+    - title: Hotwire Turbo
+      description: Single Page Applications without the need for any custom JavaScript
+      links:
+          - title: Website
+            url: https://turbo.hotwired.dev/
+
+hotwire_stimulus:
+    - title: Hotwire Stimulus
+      description: Adds behavior to your HTML via simple Javascript Controllers
+      characteristics:
+          -
+      links:
+          - title: Website
+            url: https://stimulus.hotwired.dev/
+
+hotwire_native:
+    - title: Hotwire Native
+      description: Web-first framework for building native mobile apps
+      links:
+          - title: Website
+            url: https://native.hotwired.dev/
+
+roadrunner:
+    - title: Roadrunner
+      description: High-performance PHP Server
+      characteristics:
+          -
+      links:
+          - title: Website
+            url: https://roadrunner.dev/
+
+gotenberg:
+    - title: Gotenberg
+      description: PDF Generation
+      links:
+          - title: Website
+            url: https://gotenberg.dev/
+          - title: Symfony Integration
+            utl: https://github.com/sensiolabs/GotenbergBundle
+
+symfony:
+    - title: Symfony
+      description: PHP framework focused on performance and flexibility
+      characteristics:
+          - Battle-tested and feature-rich
+          - Modular and flexible
+          - Suitable for complex and large-scale projects
+          - More flexible and faster ORM, templating, (auto-)wiring etc.
+      links:
+          - title: Website
+            urL: https://symfony.com/doc/current/index.html
+
+laravel:
+    - title: Laravel
+      description: PHP Framework focused on rapid development
+      characteristics:
+          - Developer-friendly, suitable for less experienced developers
+          - Opinionated
+              
+              More suitable for small to medium-sized projects
+      links:
+          - title: Website
+            url: https://laravel.com/
+
+express:
+    - title: Express
+      description: Fast and minimalistic web framework for NodeJS
+      characteristics:
+          - Suitable for small real-time microservices
+
+postgres:
+    - title: PostgreSQL
+      description: Database
+      characteristics:
+          -
+      links:
+          - title: Website
+            url: https://www.postgresql.org/
+
+open_api:
+    - title: OpenAPI
+      description: Most widely used API description standard
+      characteristics:
+          - More secure and manageable than GraphQL
+      links:
+          - title: Website
+            url: https://www.openapis.org/
+
+tailwind:
+    - title: Tailwind CSS
+      description:
+      links:
+          - title: Website
+            url: https://tailwindcss.com/
+
+blackfire:
+    - title: Blackfire
+      description: Real-time application performance monitoring
+      links:
+          - title: Website
+            url: https://www.blackfire.io/
+
+xdebug:
+    - title: Xdebug
+      description: PHP Debugging
+      links:
+          - title: Website
+            url: https://xdebug.org/
+
+trends:
+    -

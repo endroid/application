@@ -1,0 +1,43 @@
+open_telemetry:
+    service:
+        namespace: 'endroid'
+        name: 'symfony'
+        version: '1.0.0'
+        environment: '%kernel.environment%'
+    instrumentation:
+        cache:
+            tracing: { enabled: true }
+        console:
+            type: 'auto'
+            tracing: { enabled: true }
+        doctrine:
+            tracing: { enabled: true }
+        http_client:
+            tracing: { enabled: true }
+        http_kernel:
+            type: 'auto'
+            tracing: { enabled: true }
+        mailer:
+            tracing: { enabled: true }
+        messenger:
+            type: 'auto'
+            tracing: { enabled: true }
+        twig:
+            tracing: { enabled: true }
+    traces:
+        tracers:
+            main:
+                provider: 'open_telemetry.traces.providers.default'
+        providers:
+            default:
+                type: 'default'
+                sampler: 'always_on'
+                processors:
+                    - 'open_telemetry.traces.processors.simple'
+        processors:
+            simple:
+                type: 'simple'
+                exporter: 'open_telemetry.traces.exporters.otlp'
+        exporters:
+            otlp:
+                dsn: 'http+otlp://collector:4318'

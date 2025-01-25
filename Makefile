@@ -1,9 +1,5 @@
 .PHONY: bevy django drupal fiber fresh laravel nestjs rocket sveltekit symfony
 
-IMAGE := $(word 2,$(MAKECMDGOALS))
-FRAMEWORK := $(word 3,$(MAKECMDGOALS))
-COMMAND := $(word 4,$(MAKECMDGOALS))
-
 ENDROID_CMD := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 
 build:
@@ -31,9 +27,6 @@ login-root:
 
 install-ca:
 	.docker/caddy/ssl/install-ca
-
-docker:
-	@docker compose exec $(IMAGE) $(FRAMEWORK)/bin/$(COMMAND)
 
 deploy:
 	@bin/deploy

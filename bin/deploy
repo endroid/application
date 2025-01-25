@@ -8,6 +8,6 @@ git clone git@github.com:endroid/application.git
 (
     cd application
     make up
-    make certbot
+    make php symfony build
     make php symfony run &
 )

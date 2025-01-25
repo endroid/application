@@ -29,11 +29,9 @@ cp -r base/. application/
     jq '.config."preferred-install"."endroid/*" = "source"' composer.json | sponge composer.json
 
     composer require \
-        php:^8.4 \
         api-platform/core \
         baldinof/roadrunner-bundle \
         doctrine/doctrine-fixtures-bundle \
-        friendsofopentelemetry/opentelemetry-bundle \
         fusionauth/fusionauth-client \
         knplabs/knp-snappy-bundle \
         meilisearch/meilisearch-php \

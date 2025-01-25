@@ -4,6 +4,8 @@ IMAGE := $(word 2,$(MAKECMDGOALS))
 FRAMEWORK := $(word 3,$(MAKECMDGOALS))
 COMMAND := $(word 4,$(MAKECMDGOALS))
 
+ENDROID_CMD := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+
 build:
 	@docker compose pull
 	@docker compose build --pull --no-cache
@@ -35,6 +37,11 @@ docker:
 
 deploy:
 	@bin/deploy
+
+endroid:
+	@for dir in symfony/application/vendor/endroid/*; do \
+		(cd $$dir && $(ENDROID_CMD)); \
+	done
 
 benchmark:
 	@bin/benchmark

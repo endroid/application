@@ -32,6 +32,8 @@ services:
             - .:/var/www/html
             - ./.docker/caddy/Caddyfile:/etc/caddy/Caddyfile
             - ./.docker/caddy/data:/data
+            - ./.docker/caddy/ssl/certificate.pem:/etc/ssl/certs/certificate.pem
+            - ./.docker/caddy/ssl/key.pem:/etc/ssl/private/key.pem
         command: ["caddy", "run", "--watch", "--config", "/etc/caddy/Caddyfile"]
 
 #    fusionauth:

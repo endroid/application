@@ -1,3 +1,14 @@
+# This file is watched by Caddy and configuration is reloaded automatically
+
+# Symfony (Roadrunner)
+endroid.nl:443 {
+	root * /var/www/html/symfony/application/public
+	tls /etc/ssl/certs/certificate.pem /etc/ssl/private/key.pem
+	encode zstd gzip
+	file_server
+	reverse_proxy php:6000
+}
+
 # Symfony (Roadrunner)
 localhost:443 {
 	root * /var/www/html/symfony/application/public

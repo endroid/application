@@ -1,24 +1,7 @@
 # This file is watched by Caddy and configuration is reloaded automatically
 
-# Symfony (Roadrunner)
-endroid.nl:443 {
-	root * /var/www/html/symfony/application/public
-	encode zstd gzip
-	file_server
-	reverse_proxy php:6000
-}
-
-# Symfony (Roadrunner)
-localhost:443 {
-	root * /var/www/html/symfony/application/public
-	tls internal
-	encode zstd gzip
-	file_server
-	reverse_proxy php:6000
-}
-
 # Symfony (PHP-FPM)
-localhost:9000 {
+localhost:443 {
 	root * /var/www/html/symfony/application/public
 	tls internal
 	encode zstd gzip
@@ -30,6 +13,15 @@ localhost:9000 {
 		path *.php*
 	}
 	error @phpFile "Not found" 404
+}
+
+# Symfony (Roadrunner)
+localhost:9000 {
+	root * /var/www/html/symfony/application/public
+	tls internal
+	encode zstd gzip
+	file_server
+	reverse_proxy php:6000
 }
 
 # Laravel (PHP-FPM)

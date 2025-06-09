@@ -6,7 +6,7 @@
 /// - gRPC reflection for service discovery and debugging
 
 use tonic::transport::Server;
-use grpc::{SudokuSolverService, FactorialCalculatorService};
+use grpc::{SudokuSolverService, FactorialCalculatorService, DatabaseConfig, PersistenceService, initialize_database};
 use grpc::proto::{
     sudoku::sudoku_server::SudokuServer,
     factorial::factorial_server::FactorialServer,
@@ -21,9 +21,37 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     println!("🚀 Initializing gRPC server...");
     
+    // Initialize database connection and persistence service
+    let db_config = DatabaseConfig::default();
+    let db_connection = match db_config.connect().await {
+        Ok(db) => {
+            println!("✅ Database connection established");
+            
+            // Run database migrations to ensure schema is up to date
+            if let Err(e) = initialize_database(&db).await {
+                println!("⚠️  Failed to run database migrations: {}", e);
+                println!("   Server will run without persistence");
+                None
+            } else {
+                Some(db)
+            }
+        }
+        Err(e) => {
+            println!("⚠️  Failed to connect to database: {}", e);
+            println!("   Server will run without persistence");
+            None
+        }
+    };
+    
     // Create service instances
     // These implement the actual business logic for each service
-    let sudoku_solver = SudokuSolverService::default();
+    let sudoku_solver = if let Some(db) = db_connection {
+        let persistence = PersistenceService::new(db);
+        SudokuSolverService::with_persistence(persistence)
+    } else {
+        SudokuSolverService::default()
+    };
+    
     let factorial_calculator = FactorialCalculatorService::default();
     println!("✅ Service instances created");
 

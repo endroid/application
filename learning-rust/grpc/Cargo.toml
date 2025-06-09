@@ -8,6 +8,15 @@ tonic = "0.13.1"
 tonic-reflection = "0.13.1"
 prost = "0.13.5"
 tokio = { version = "1.45.1", features = ["full"] }
+sea-orm = { version = "1.1.2", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "with-chrono", "with-uuid"] }
+uuid = { version = "1.11.0", features = ["v4", "serde"] }
+chrono = { version = "0.4.39", features = ["serde"] }
+serde = { version = "1.0.216", features = ["derive"] }
+sea-orm-migration = "1.1.2"
+migration = { path = "migration" }
+
+[dev-dependencies]
+sea-orm-cli = { version = "1.1.2", default-features = false, features = ["codegen"] }
 
 [build-dependencies]
 tonic-build = "0.13.1"

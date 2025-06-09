@@ -12,8 +12,11 @@
 pub mod proto;
 pub mod services;
 pub mod sudoku;
+pub mod database;
 
 // Re-export service implementations for easier access
 pub use services::{SudokuSolverService, FactorialCalculatorService};
 // Re-export sudoku functionality
 pub use sudoku::{SudokuBoard, SudokuSolver, SudokuComplexity, TestPuzzles};
+// Re-export database functionality
+pub use database::{DatabaseConfig, PersistenceService, initialize_database};

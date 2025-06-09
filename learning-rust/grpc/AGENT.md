@@ -7,12 +7,15 @@
 - **Test**: `cargo test` (run all tests), `cargo test <test_name>` (single test)
 - **Format**: `cargo fmt`
 - **Lint**: `cargo clippy`
+- **Database migrations**: `cd migration && sea-orm-cli migrate up` (requires database)
 
 ## Architecture
 - **Type**: Rust gRPC microservice with client/server binaries in `src/bin/`
 - **Proto files**: `proto/` directory contains `.proto` definitions, `src/proto/` contains generated bindings
 - **Services**: `src/services/` folder contains service implementations (sudoku_solver_service.rs, factorial_calculator_service.rs)
 - **Sudoku solver**: `src/sudoku/` contains complete Sudoku solving library with backtracking algorithm
+- **Database**: `src/database/` contains SeaORM entities and persistence layer for caching solutions
+- **Migrations**: `migration/` contains database schema migrations (code-first approach)
 - **Library**: `src/lib.rs` exposes public API, modules organized by responsibility
 - **Generated code**: `build.rs` uses `tonic-build` to generate Rust bindings from `.proto` files
 - **Server**: Runs on `0.0.0.0:50051` with reflection support for debugging

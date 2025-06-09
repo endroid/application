@@ -1,2 +1,2 @@
-/target/
-/Cargo.lock
+# Build artifacts - exclude all target directories
+**/target/

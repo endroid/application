@@ -1010,6 +1010,7 @@ dependencies = [
  "chrono",
  "migration",
  "prost",
+ "rand",
  "sea-orm",
  "sea-orm-cli",
  "sea-orm-migration",

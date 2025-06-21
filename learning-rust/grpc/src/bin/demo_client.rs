@@ -3,9 +3,11 @@
 /// This client connects to the gRPC server and demonstrates calling both services
 /// with sample data while measuring response times.
 
-use grpc::proto::{sudoku, factorial};
 use grpc::proto::sudoku::sudoku_client::SudokuClient;
+use grpc::proto::sudoku::{Board, GenerateRequest};
 use grpc::proto::factorial::factorial_client::FactorialClient;
+use grpc::proto::factorial::FactorialRequest;
+use grpc::sudoku::SudokuBoard;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -30,13 +32,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("   🟢 Testing Easy puzzle...");
     println!("      Input puzzle: {}", easy_puzzle);
     // Display as 9x9 grid
-    if let Ok(input_board) = grpc::SudokuBoard::from_string(easy_puzzle) {
+    if let Ok(input_board) = SudokuBoard::from_string(easy_puzzle) {
         for line in input_board.to_matrix_string().lines() {
             println!("         {}", line);
         }
     }
     
-    let sudoku_request = tonic::Request::new(sudoku::Board {
+    let sudoku_request = tonic::Request::new(Board {
         values: easy_puzzle.to_string(),
     });
     
@@ -67,13 +69,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let medium_puzzle = "...6..4..7....36......91.8..........5.18...3...3.6.45.4.2...6.9.3.......2...4...";
     
     println!("      Input puzzle: {}", medium_puzzle);
-    if let Ok(input_board) = grpc::SudokuBoard::from_string(medium_puzzle) {
+    if let Ok(input_board) = SudokuBoard::from_string(medium_puzzle) {
         for line in input_board.to_matrix_string().lines() {
             println!("         {}", line);
         }
     }
     
-    let sudoku_request = tonic::Request::new(sudoku::Board {
+    let sudoku_request = tonic::Request::new(Board {
         values: medium_puzzle.to_string(),
     });
     
@@ -99,12 +101,86 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
     
+    // Test puzzle generation with different difficulty levels
+    println!("\n🔄 Testing Puzzle Generation...");
+    
+    // Test generating puzzles for each difficulty level
+    use grpc::proto::sudoku::Difficulty as SudokuDifficulty;
+    
+    let difficulties = [
+        ("🟢 EASY", SudokuDifficulty::Easy as i32),
+        ("🟡 MEDIUM", SudokuDifficulty::Medium as i32),
+        ("🔴 HARD", SudokuDifficulty::Hard as i32),
+        ("🔵 EXPERT", SudokuDifficulty::Expert as i32),
+    ];
+    
+    for (difficulty_name, difficulty_level) in difficulties.iter() {
+        println!("\n   🎲 Generating {} puzzle...", difficulty_name);
+        
+        let generate_request = tonic::Request::new(GenerateRequest {
+            difficulty: *difficulty_level,
+        });
+        
+        match sudoku_client.generate(generate_request).await {
+            Ok(response) => {
+                let response = response.into_inner();
+                let puzzle = response.puzzle.unwrap().values;
+                let solution = response.solution.unwrap().values;
+                let empty_cells = response.empty_cells;
+                
+                println!("   ✅ Generated {} puzzle with {} empty cells (difficulty: {})", 
+                    difficulty_name, empty_cells, response.difficulty);
+                
+                // Display the generated puzzle
+                if let Ok(puzzle_board) = SudokuBoard::from_string(&puzzle) {
+                    println!("   🧩 Puzzle ({} empty cells):", empty_cells);
+                    for line in puzzle_board.to_matrix_string().lines() {
+                        println!("         {}", line);
+                    }
+                }
+                
+                // Verify the provided solution is valid
+                if let Ok(solved_board) = SudokuBoard::from_string(&solution) {
+                    if solved_board.is_valid() && solved_board.is_complete() {
+                        println!("   🧩 Provided solution is valid and complete!");
+                        
+                        // Also try solving it to verify the solution matches
+                        println!("   🔍 Verifying solution by solving the puzzle...");
+                        let solve_request = tonic::Request::new(Board { values: puzzle.clone() });
+                        let start_time = std::time::Instant::now();
+                        
+                        match sudoku_client.solve(solve_request).await {
+                            Ok(solve_response) => {
+                                let elapsed_time = start_time.elapsed();
+                                let solved_puzzle = solve_response.into_inner().values;
+                                
+                                if solved_puzzle == solution {
+                                    println!("   ✅ Verified: Solved puzzle matches provided solution!");
+                                    println!("   ⏱️  Solve time: {:?}", elapsed_time);
+                                } else {
+                                    println!("   ❌ Mismatch: Solved puzzle differs from provided solution!");
+                                    println!("   ⚠️ Warning: Generated puzzle has an invalid solution!");
+                                }
+                            }
+                        }
+                    }
+                    Err(e) => {
+                        println!("   ❌ Failed to solve the generated puzzle: {}", e.message());
+                    }
+                }
+            }
+            Err(e) => {
+                println!("   ❌ Failed to generate {} puzzle: {}", difficulty_name, e.message());
+            }
+        }
+    }
+    
     // Demo 2: Test Factorial calculation service
     println!("\n🔢 Testing factorial calculator service...");
     let mut factorial_client = FactorialClient::new(channel);
     
     let test_number = 8;
-    let factorial_request = tonic::Request::new(factorial::FactorialRequest {
+    let factorial_request = tonic::Request::new(FactorialRequest {
         number: test_number,
     });
     

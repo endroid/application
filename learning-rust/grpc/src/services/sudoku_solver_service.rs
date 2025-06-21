@@ -1,7 +1,7 @@
 use tonic::{Request, Response, Status};
 use crate::proto::sudoku::sudoku_server::Sudoku;
-use crate::proto::sudoku::Board;
-use crate::sudoku::{SudokuBoard, SudokuSolver};
+use crate::proto::sudoku::{Board, GenerateRequest, GenerateResponse};
+use crate::sudoku::{SudokuBoard, SudokuSolver, SudokuComplexity};
 use crate::database::{PersistenceService, persistence::{PuzzleStoreInput}};
 
 /// Service that handles Sudoku puzzle solving requests
@@ -54,6 +54,72 @@ impl Sudoku for SudokuSolverService {
     /// # Returns
     /// - Success: Board with all cells filled (complete solution)
     /// - Error: If puzzle is invalid, unsolvable, or too complex
+    async fn generate(&self, request: Request<GenerateRequest>) -> Result<Response<GenerateResponse>, Status> {
+        let difficulty = request.into_inner().difficulty;
+        
+        // Validate difficulty is within valid range (0-3)
+        if difficulty > 3 {
+            return Err(Status::invalid_argument(
+                format!("Invalid difficulty level: {}. Must be between 0 (EASY) and 3 (EXPERT)", difficulty)
+            ));
+        }
+        
+        let difficulty_enum = match difficulty {
+            0 => SudokuComplexity::Easy,
+            1 => SudokuComplexity::Medium,
+            2 => SudokuComplexity::Hard,
+            3 => SudokuComplexity::Expert,
+            _ => unreachable!(), // We've already validated the range above
+        };
+
+        println!("🎲 Generating new {} Sudoku puzzle", difficulty_enum);
+        
+        // Generate a new puzzle
+        let (puzzle, solution) = match self.solver.generate_puzzle(&difficulty_enum) {
+            Some((p, s)) => (p, s),
+            None => {
+                println!("❌ Failed to generate puzzle with difficulty: {:?}", difficulty_enum);
+                return Err(Status::internal(format!("Failed to generate puzzle with difficulty: {:?}", difficulty_enum)));
+            },
+        };
+
+        let puzzle_str = puzzle.to_string();
+        let solution_str = solution.to_string();
+        let empty_cells = puzzle_str.chars().filter(|&c| c == '.').count() as i32;
+
+        // Store the puzzle and solution in the database if persistence is enabled
+        if let Some(ref persistence) = self.persistence {
+            // Clone difficulty_enum before moving it into the store_input
+            let store_input = PuzzleStoreInput {
+                puzzle_input: puzzle_str.clone(),
+                solution: Some(solution_str.clone()),
+                solve_time: None, // Not applicable for generated puzzles
+                difficulty: difficulty_enum.clone(), // Clone the enum here
+                empty_cells: empty_cells as usize,
+                is_solved: false, // It's a puzzle, not a solution
+                error_message: None,
+            };
+            
+            if let Err(e) = persistence.store_puzzle_result(store_input).await {
+                println!("⚠️  Failed to store generated puzzle: {}", e);
+            }
+        }
+
+        // Create the response with both puzzle and solution
+        let response = GenerateResponse {
+            puzzle: Some(Board {
+                values: puzzle_str,
+            }),
+            solution: Some(Board {
+                values: solution_str,
+            }),
+            empty_cells,
+            difficulty: difficulty as i32, // Convert the enum to its numeric value
+        };
+
+        Ok(Response::new(response))
+    }
+    
     async fn solve(&self, request: Request<Board>) -> Result<Response<Board>, Status> {
         let input_board = request.into_inner();
         let puzzle_input = &input_board.values;

@@ -33,7 +33,7 @@
 * PostgreSQL
   * Single database server
   * Separate database per service
-* Dragonfly
+* Redis
 * Jaeger (OpenTelemetry)
   * UI - http://localhost:16686
 

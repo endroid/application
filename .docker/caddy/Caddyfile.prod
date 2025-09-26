@@ -1,0 +1,7 @@
+# Symfony (Roadrunner)
+endroid.nl:443 {
+	root * /var/www/html/symfony/application/public
+	encode zstd gzip
+	file_server
+	reverse_proxy php:6000
+}

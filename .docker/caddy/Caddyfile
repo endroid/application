@@ -37,17 +37,6 @@ localhost:9100 {
 	error @phpFile "Not found" 404
 }
 
-# Drupal (PHP-FPM)
-localhost:9200 {
-	root * /var/www/html/drupal/application/web
-	tls internal
-	encode zstd gzip
-	file_server
-	php_fastcgi php:9000 {
-		resolve_root_symlink
-	}
-}
-
 # NestJS (NodeJS)
 localhost:3000 {
 	root * /var/www/html/nestjs/application/public

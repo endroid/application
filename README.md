@@ -25,8 +25,6 @@
   * Rocket - http://localhost:8001
 * Laravel (PHP)
   * Caddy + PHP-FPM - https://localhost:9100
-* Drupal (PHP)
-  * Caddy - https://localhost:9200
 
 ### Services
 

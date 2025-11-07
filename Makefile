@@ -1,4 +1,4 @@
-.PHONY: bevy django drupal fiber fresh laravel nestjs rocket sveltekit symfony
+.PHONY: bevy django fiber fresh laravel nestjs rocket sveltekit symfony
 
 ENDROID_CMD := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 

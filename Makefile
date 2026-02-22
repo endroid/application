@@ -21,6 +21,3 @@ login-root:
 
 benchmark:
 	@bin/benchmark
-
-deploy:
-	@bin/deploy

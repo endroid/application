@@ -6,7 +6,7 @@ cd "$(dirname "$0")"/..
 
 rm -rf application
 
-composer create-project symfony/skeleton:^7.2 application --no-interaction
+composer create-project symfony/skeleton:^8.0 application --no-interaction
 cp -r base/. application/
 
 (
@@ -15,7 +15,7 @@ cp -r base/. application/
     composer config minimum-stability dev
     composer config prefer-stable true
     composer config extra.symfony.allow-contrib true
-    composer config platform.php 8.4
+    composer config platform.php 8.5
 
     composer config --global --no-plugins allow-plugins.endroid/composer-message true
     composer config --global --no-plugins allow-plugins.endroid/installer true
@@ -30,7 +30,6 @@ cp -r base/. application/
 
     composer require \
         api-platform/core \
-        baldinof/roadrunner-bundle \
         doctrine/doctrine-fixtures-bundle \
         fusionauth/fusionauth-client \
         knplabs/knp-snappy-bundle \

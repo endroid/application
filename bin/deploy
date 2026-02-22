@@ -8,15 +8,12 @@ touch ~/.gitconfig ~/.gitignore_global
 rm -rf application
 git clone git@github.com:endroid/application.git
 
-rm -rf application/.docker/caddy/data
 rm -rf application/.docker/postgres/data
-
-cp application/.docker/caddy/Caddyfile.prod application/.docker/caddy/Caddyfile
+rm -rf application/.docker/redis/data
 
 (
     cd application
     make up
     docker compose exec -ti php symfony/bin/build
     docker compose exec -ti php symfony/application/bin/console asset-map:compile
-    docker compose exec -ti php symfony/bin/run &
 )

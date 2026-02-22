@@ -1,10 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-set -ex
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
+BENCHMARK_DIR="$PROJECT_DIR/.benchmark"
+RESULTS_DIR="$BENCHMARK_DIR/results"
 
-# DENO
-for i in `seq 1 20`; do curl http://localhost:3101/; done
-ab -c 30 -t 30 http://localhost:3101/ > .benchmarks/php-deno-fresh.ab
+mkdir -p "$RESULTS_DIR"
 
-for i in `seq 1 20`; do curl https://localhost:3100/; done
-ab -c 30 -t 30 https://localhost:3100/ > .benchmarks/php-deno-fresh-caddy.ab
+for script in "$BENCHMARK_DIR"/*.js; do
+    [ -f "$script" ] || continue
+
+    name=$(basename "$script" .js)
+    output="$RESULTS_DIR/$name.txt"
+
+    echo "Running benchmark: $name"
+    k6 run "$script" 2>&1 | tee "$output"
+    echo "Results saved to: $output"
+    echo
+done
+
+echo "All benchmarks completed"

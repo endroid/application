@@ -1,0 +1,24 @@
+:443 {
+    tls /etc/frankenphp/localhost.pem /etc/frankenphp/localhost-key.pem
+    root /app/symfony/application/public
+    php_server {
+        worker {
+            file /app/symfony/application/public/index.php
+            num 2
+            watch /app/symfony/application/**
+        }
+    }
+}
+
+:8001 {
+    tls /etc/frankenphp/localhost.pem /etc/frankenphp/localhost-key.pem
+    root /app/laravel/application/public
+    php_server {
+        index frankenphp-worker.php
+        worker {
+            file /app/laravel/application/public/frankenphp-worker.php
+            num 2
+            watch /app/laravel/application/**
+        }
+    }
+}

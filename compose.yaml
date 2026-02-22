@@ -1,219 +1,92 @@
 services:
-    caddy:
-        image: caddy:2.10.2-alpine
-        restart: unless-stopped
-        cap_add:
-            - NET_ADMIN
-        ports:
-            - '443:443'
-            - '443:443/udp'
-            - '3000:3000'
-            - '3000:3000/udp'
-            - '3100:3100'
-            - '3100:3100/udp'
-            - '5000:5000'
-            - '5000:5000/udp'
-            - '8000:8000'
-            - '8000:8000/udp'
-            - '9000:9000'
-            - '9000:9000/udp'
-            - '9100:9100'
-            - '9100:9100/udp'
-            - '9200:9200'
-            - '9200:9200/udp'
-        depends_on:
-            - deno
-            - golang
-            - php
-            - node
-            - python
-            - rust
-        volumes:
-            - .:/var/www/html
-            - ./.docker/caddy/Caddyfile:/etc/caddy/Caddyfile
-            - ./.docker/caddy/data:/data
-        command: ["caddy", "run", "--watch", "--config", "/etc/caddy/Caddyfile"]
+  php:
+    image: ghcr.io/endroid/docker-php:main
+    environment:
+      APP_RUNTIME: Runtime\FrankenPhpSymfony\Runtime
+      COMPOSER_HOME: /.composer
+    volumes:
+      - .:/app
+      - ~/.claude:/.claude
+      - ~/.claude.json:/.claude.json
+      - ~/.composer:/.composer
+      - ./.docker/php/Caddyfile:/etc/frankenphp/Caddyfile
+      - ./.docker/php/localhost.pem:/etc/frankenphp/localhost.pem
+      - ./.docker/php/localhost-key.pem:/etc/frankenphp/localhost-key.pem
+      - ~/.gitconfig:/.gitconfig
+      - ~/.gitignore_global:/.gitignore_global
+      - ~/.ssh:/.ssh
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "443:443" # Symfony
+      - "443:443/udp"
+      - "8001:8001" # Laravel
+      - "8001:8001/udp"
+    tty: true
+    user: '1000'
 
-#    fusionauth:
-#        image: fusionauth/fusionauth-app:1.48.1
-#        environment:
-#            DATABASE_URL: jdbc:postgresql://postgres:5432/fusionauth
-#            DATABASE_ROOT_USERNAME: root
-#            DATABASE_ROOT_PASSWORD: root
-#            DATABASE_USERNAME: fusionauth
-#            DATABASE_PASSWORD: fusionauth
-#            FUSIONAUTH_APP_MEMORY: 256M
-#            FUSIONAUTH_APP_RUNTIME_MODE: development
-#            FUSIONAUTH_APP_KICKSTART_FILE: /usr/local/fusionauth/kickstart/kickstart.json
-#        volumes:
-#            - ./.docker/fusionauth/kickstart:/usr/local/fusionauth/kickstart
-#        depends_on:
-#            - postgres
-#        ports:
-#            - '9011:9011'
+  node:
+    image: ghcr.io/endroid/docker-node:main
+    environment:
+      NODE_ENV: development
+    volumes:
+      - .:/app
+      - ~/.claude:/.claude
+      - ~/.claude.json:/.claude.json
+      - ~/.gitconfig:/home/node/.gitconfig
+      - ~/.gitignore_global:/home/node/.gitignore_global
+      - ~/.npm:/home/node/.npm
+      - ~/.ssh:/home/node/.ssh
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - '3001:3000'
+      - '5173:5173'
+    tty: true
 
-    php:
-        image: ghcr.io/endroid/docker-php:latest
-        environment:
-            XDEBUG_MODE: off
-        volumes:
-            - .:/var/www/html
-            - ./.docker/php/zzzz-custom.ini:/usr/local/etc/php/conf.d/zzzz-custom.ini
-            - ~/.composer:/home/www-data/.composer
-            - ~/.gitconfig:/home/www-data/.gitconfig
-            - ~/.gitignore_global:/home/www-data/.gitignore_global
-            - ~/.ssh:/home/www-data/.ssh
-        extra_hosts:
-            - "host.docker.internal:host-gateway"
-        depends_on:
-            - collector
-            - postgres
-            - redis
-        ports:
-            - '6001:6000'
+  fusionauth:
+    image: fusionauth/fusionauth-app:1.62.1
+    environment:
+      DATABASE_URL: jdbc:postgresql://postgres:5432/fusionauth
+      DATABASE_ROOT_USERNAME: root
+      DATABASE_ROOT_PASSWORD: root
+      DATABASE_USERNAME: fusionauth
+      DATABASE_PASSWORD: fusionauth
+      FUSIONAUTH_APP_MEMORY: 256M
+      FUSIONAUTH_APP_RUNTIME_MODE: development
+      FUSIONAUTH_APP_KICKSTART_FILE: /usr/local/fusionauth/kickstart/kickstart.json
+    volumes:
+      - ./.docker/fusionauth/kickstart:/usr/local/fusionauth/kickstart
+    depends_on:
+      - postgres
+    ports:
+      - '9011:9011'
 
-    node:
-        image: ghcr.io/endroid/docker-node:latest
-        tty: true
-        environment:
-            NODE_ENV: development
-        volumes:
-            - .:/app
-            - ~/.gitconfig:/home/node/.gitconfig
-            - ~/.npm:/home/node/.npm
-        depends_on:
-            - postgres
-            - redis
-        ports:
-            - '3001:3000'
-            - '5173:5173'
+  redis:
+    image: valkey/valkey:8
+    volumes:
+      - ./.docker/redis/data:/data
+    expose:
+      - '6391'
 
-    deno:
-        image: ghcr.io/endroid/docker-deno:latest
-        command: tail -f /dev/null
-        volumes:
-            - .:/app
-            - ~/.gitconfig:/home/deno/.gitconfig
-            - ./.docker/deno/data:/deno-dir
-        ports:
-            - '3101:8000'
+  postgres:
+    image: postgres:18.0-alpine3.22
+    environment:
+      POSTGRES_DB: application
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./.docker/postgres/data:/var/lib/postgresql/data
+    expose:
+      - '5432'
 
-    python:
-        image: ghcr.io/endroid/docker-python:latest
-        tty: true
-        volumes:
-            - .:/app
-            - ~/.gitconfig:/home/python/.gitconfig
-        ports:
-            - '5001:5000'
-
-    rust:
-        image: ghcr.io/endroid/docker-rust:latest
-        tty: true
-        volumes:
-            - .:/app
-            - ~/.gitconfig:/home/rust/.gitconfig
-        expose:
-            - '8001:8000'
-
-    golang:
-        image: ghcr.io/endroid/docker-golang:latest
-        tty: true
-        environment:
-            GOCACHE: /usr/src/app/.docker/golang/cache
-        volumes:
-            - .:/usr/src/app
-            - ~/.gitconfig:/.gitconfig
-        ports:
-            - '6060:6060'
-
-    redis:
-        image: redis:8.2.1-alpine3.22
-        volumes:
-            - ./.docker/redis/data:/data
-        expose:
-            - 6379
-
-    postgres:
-        image: postgres:18.0-alpine3.22
-        environment:
-            POSTGRES_DB: nestjs
-            POSTGRES_USER: root
-            POSTGRES_PASSWORD: root
-        ports:
-            - '5432:5432'
-
-    meilisearch:
-        image: getmeili/meilisearch:v1.22.0
-        environment:
-            - http_proxy
-            - https_proxy
-            - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-masterKey}
-            - MEILI_NO_ANALYTICS=${MEILI_NO_ANALYTICS:-true}
-            - MEILI_ENV=${MEILI_ENV:-development}
-            - MEILI_LOG_LEVEL
-            - MEILI_DB_PATH=${MEILI_DB_PATH:-/data.ms}
-        ports:
-            - ${MEILI_PORT:-7700}:7700
-        volumes:
-            - ./.docker/meilisearch/data.ms:/data.ms
-        restart: unless-stopped
-
-#    zookeeper:
-#        image: bitnami/zookeeper:3.9.1
-#        environment:
-#            ZOO_PORT_NUMBER: 2181
-#            ZOO_SERVER_ID: 1
-#            ZOO_SERVERS: zookeeper:2888:3888
-#            ALLOW_ANONYMOUS_LOGIN: 'yes'
-#        ports:
-#            - '2181:2181'
-#
-#    kafka:
-#        image: confluentinc/cp-kafka:7.4.3
-#        environment:
-#            KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19092,EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:9092,DOCKER://host.docker.internal:29092
-#            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,DOCKER:PLAINTEXT
-#            KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
-#            KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-#            KAFKA_BROKER_ID: 1
-#            KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
-#            KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
-#            KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
-#        ports:
-#            - "9092:9092"
-#            - "29092:29092"
-#
-#    kafka-ui:
-#        image: provectuslabs/kafka-ui:latest
-#        depends_on:
-#            - kafka
-#        environment:
-#            KAFKA_CLUSTERS_0_NAME: local
-#            KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:19092
-#            DYNAMIC_CONFIG_ENABLED: 'true'
-#        ports:
-#            - '8080:8080'
-#
-#    blackfire:
-#        image: blackfire/blackfire:2.23.0
-#        environment:
-#            # Do not change: instead set these envs on your host
-#            BLACKFIRE_SERVER_ID: ~
-#            BLACKFIRE_SERVER_TOKEN: ~
-#            BLACKFIRE_CLIENT_ID: ~
-#            BLACKFIRE_CLIENT_TOKEN: ~
-
-    jaeger:
-        image: jaegertracing/all-in-one:1.73.0
-        environment:
-            COLLECTOR_ZIPKIN_HOST_PORT: 9412
-        ports:
-            - '9412:9412'
-            - '16686:16686'
-
-    collector:
-        image: otel/opentelemetry-collector-contrib:0.136.0
-        command: ['--config=/etc/collector.yaml']
-        volumes:
-            - ./.docker/opentelemetry/collector.yaml:/etc/collector.yaml
+  blackfire:
+    image: blackfire/blackfire:2
+    environment:
+      # Do not change: instead set these envs on your host
+      BLACKFIRE_SERVER_ID: ~
+      BLACKFIRE_SERVER_TOKEN: ~
+      BLACKFIRE_CLIENT_ID: ~
+      BLACKFIRE_CLIENT_TOKEN: ~

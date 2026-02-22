@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -ex
-
-cd nestjs/application && npm run check

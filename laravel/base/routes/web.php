@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\HelloWorldController;
+use App\Http\Controllers\StatusController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,4 +18,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('hello-world', HelloWorldController::class);
+Route::get('status', StatusController::class);

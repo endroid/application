@@ -1,14 +1,8 @@
-.PHONY: bevy django fiber fresh laravel nestjs rocket sveltekit symfony
-
-ENDROID_CMD := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-
 build:
-	@docker compose pull
-	@docker compose build --pull --no-cache
+	@docker compose pull # pulls images defined in compose.yaml
+	@docker compose build --pull --no-cache # pulls images defined in Dockerfile
 
 up:
-	@make down
-	@docker compose build --pull
 	@docker compose up -d --force-recreate --remove-orphans
 
 down:
@@ -25,19 +19,8 @@ login:
 login-root:
 	@docker compose exec --user=0 -ti $(filter-out $@,$(MAKECMDGOALS)) /bin/bash
 
-install-ca:
-	.docker/caddy/ssl/install-ca
-
-deploy:
-	@bin/deploy
-
-endroid:
-	@for dir in symfony/application/vendor/endroid/*; do \
-		(cd $$dir && $(ENDROID_CMD)); \
-	done
-
 benchmark:
 	@bin/benchmark
 
-%:
-	@:
+deploy:
+	@bin/deploy

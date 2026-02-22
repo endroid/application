@@ -22,13 +22,13 @@ hotwire_native:
             url: https://native.hotwired.dev/
 
 roadrunner:
-    - title: Roadrunner
+    - title: FrankenPHP
       description: High-performance PHP Server
       characteristics:
           -
       links:
           - title: Website
-            url: https://roadrunner.dev/
+            url: https://frankenphp.dev/
 
 gotenberg:
     - title: Gotenberg
@@ -55,8 +55,8 @@ laravel:
     - title: Laravel
       description: PHP Framework focused on rapid development
       characteristics:
-          - Developer-friendly, suitable for less experienced developers
-          - Opinionated
+          - Developer-friendly
+          - More opinionated
               
               More suitable for small to medium-sized projects
       links:

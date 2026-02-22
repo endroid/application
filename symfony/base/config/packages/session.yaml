@@ -1,3 +1,5 @@
 framework:
     session:
+        name: SID
         handler_id: '%env(REDIS_URL)%'
+        cookie_secure: true

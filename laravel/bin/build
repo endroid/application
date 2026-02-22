@@ -7,12 +7,15 @@ cd "$(dirname "$0")"/..
 rm -rf application
 
 composer create-project laravel/laravel application --no-interaction
+cp -r base/. application/
 
 (
     cd application
 
-	cp -r ../base/. ./
+    composer require \
+        laravel/octane
 
+    php artisan octane:install --server=frankenphp
 
     git init
     git add -A && git commit -m "Initial commit"
